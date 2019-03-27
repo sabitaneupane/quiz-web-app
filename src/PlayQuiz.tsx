@@ -59,7 +59,7 @@ class PlayQuiz extends React.Component<{} , IState>{
                             </div>
     
                             <div className="panel-footer">
-                              <AnswerDisplay  />
+                              {data.correctAnswer}
                             </div>
                           </div>
                         </div>
