@@ -3,7 +3,9 @@ import * as React from 'react';
 class ListQuesitons extends React.Component{
     render() {
         return (
-            <h2> List Questions </h2>
+            <div>
+                <h3> List Questions </h3>
+            </div>
         )
     }
 }
