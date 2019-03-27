@@ -23,6 +23,8 @@
   },
   "dependencies": {
     "react": "^16.5.2",
-    "react-dom": "^16.5.2"
+    "react-dom": "^16.5.2",
+    "ts-loader": "^5.3.3",
+    "typescript": "^3.3.4000"
   }
 }
