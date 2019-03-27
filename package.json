@@ -1,14 +1,11 @@
 {
-  "name": "simple_webpack_boilerplate",
+  "name": "typescript-sample-app",
   "version": "1.0.0",
-  "description": "A ready to use simple webpack boilerplate",
-  "main": "src/index.js",
+  "description": "Typescript sample app with react",
   "scripts": {
     "start": "webpack-dev-server --mode development --open",
     "build": "webpack --mode production"
   },
-  "author": "pinglinh",
-  "license": "ISC",
   "devDependencies": {
     "babel-core": "^6.26.3",
     "babel-loader": "^7.1.5",
