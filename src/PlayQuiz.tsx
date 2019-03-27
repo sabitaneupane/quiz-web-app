@@ -3,8 +3,33 @@ import ListQuestions from "./ListQuestions";
 import ListAnswerOptions from "./ListAnswerOptions";
 import AnswerDisplay from "./AnswerDisplay";
 
-class PlayQuiz extends React.Component{
-    render() {
+interface IState{
+  quiz_details:Object[];
+}
+
+class PlayQuiz extends React.Component<{} , IState>{
+  public readonly state = {
+    quiz_details: []
+  };
+  
+  componentDidMount() {
+    this.FetchData();
+  }
+
+  FetchData(){
+    fetch("https://sabitaneupane.github.io/sample-json-data/simple/quiz.json")
+      .then(res => res.json())
+      .then(
+        (response) => {
+          this.setState({
+            quiz_details: response.quiz
+          });
+          console.log(this.state.quiz_details);
+        }
+      )
+  }
+
+  render() {
         return (
             <div className="container">
               <h1> Quiz </h1>
