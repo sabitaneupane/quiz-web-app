@@ -43,24 +43,30 @@ class PlayQuiz extends React.Component<{} , IState>{
 
               <form className="form">
                 <div className="row rowContainer"> 
-                    <div className="col-md-4" >
-                        <div className="panel panel-default">
-                                <div className="panel-heading">
-                                    <h2> 
-                                    <ListQuestions /> 
-                                    </h2>
-                                </div>
-                                <div className="panel-body">
-                                    <ListAnswerOptions />
-                                </div>
+                  {
+                    this.state.quiz_details.map((data) => {
+                      return(
+                        <div className="col-md-4" key={data.question}>
+                          <div className="panel panel-default">
+                            <div className="panel-heading">
+                              <h2> 
+                                {data.question}
+                              </h2>
+                            </div>
+                                
+                            <div className="panel-body">
+                              <ListAnswerOptions />
+                            </div>
     
-                               <div className="panel-footer">
-                                      <AnswerDisplay  />
-                                  </div>
-                                 
-                                </div>
+                            <div className="panel-footer">
+                              <AnswerDisplay  />
+                            </div>
+                          </div>
                         </div>
-                    </div>
+                      );
+                    })
+                  }
+                </div>
     
                 <div className="pull-right">
                   <input type="submit" value="Submit" className="btn btn-success btnSubmit"/>
