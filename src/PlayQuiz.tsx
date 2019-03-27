@@ -3,6 +3,8 @@ import ListQuestions from "./ListQuestions";
 import ListAnswerOptions from "./ListAnswerOptions";
 import AnswerDisplay from "./AnswerDisplay";
 
+import '../styles/main.css';
+
 interface IState{
   quiz_details:Object[];
 }

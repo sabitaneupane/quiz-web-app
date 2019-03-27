@@ -1,0 +1,33 @@
+.rowContainer{
+    display:flex!important;
+    flex-wrap:wrap!important;
+}
+
+.panel{
+    border-radius: 0px;
+    border: 1px solid #e0e0e0;
+}
+
+.panel .panel-heading {
+    border-color: #ddd;
+    padding: 1px 10px;
+}
+
+.panel .panel-heading h3{
+    font-size: 15px;   
+}
+
+
+.panel .optionsLabel{
+    font-size: 12px;
+    font-weight: normal;
+}
+
+
+.btnSubmit{
+    width:200px;
+}
+
+body{
+    background: red;
+}
