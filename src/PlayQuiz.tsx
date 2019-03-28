@@ -52,8 +52,24 @@ class PlayQuiz extends React.Component<{} , IState>{
 
   handleSubmit(evt) {
     evt.preventDefault();
-    console.log("Selected answer : " + this.state.selectedAns);
-    console.log("Actual answer : " + this.state.actual_ans);
+    // console.log("Selected answer : " + this.state.selectedAns);
+    // console.log("Actual answer : " + this.state.actual_ans);
+
+    var correct_ans = [];
+    var wrong_ans = [];
+
+    for(var i=0 ; i<this.state.actual_ans.length; i++){
+      var acutalAns = this.state.actual_ans[i];
+      var submitedAns = this.state.selectedAns[i];
+      
+      if(acutalAns === submitedAns){
+        correct_ans.push(i);
+      }else{
+        wrong_ans.push(i);
+      }
+    }
+    // console.log("right ans = "+ correct_ans);
+    // console.log("wrong ans = "+ wrong_ans);   
   }
 
   actualAns(ans){
