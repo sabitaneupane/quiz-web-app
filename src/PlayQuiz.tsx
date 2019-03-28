@@ -20,6 +20,7 @@ class PlayQuiz extends React.Component<{} , IState>{
 
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.tryAgain = this.tryAgain.bind(this);
 
   }
 
@@ -97,6 +98,13 @@ class PlayQuiz extends React.Component<{} , IState>{
     return wrongAnsIndex.includes(idx) ? 'panel-danger' : 'panel-success';
   }
 
+  tryAgain(){
+    this.setState({ 
+      isQuizSubmitted: false,
+      countQuizAttempt:0
+    });
+  }
+
   render() {
         return (
             <div className="container">
@@ -105,7 +113,7 @@ class PlayQuiz extends React.Component<{} , IState>{
                 this.state.isQuizSubmitted 
                 ? <div className="pull-right">
                     <p>Total Attempt: {this.state.countQuizAttempt} </p>
-                    <input type="button" value="Try again" className="btn btn-danger" />&nbsp;
+                    <input type="button" value="Try again" className="btn btn-danger" onClick={this.tryAgain}/>&nbsp;
                     <input type="button" value="Show answer" className="btn btn-success" />
                   </div>
                 : null
