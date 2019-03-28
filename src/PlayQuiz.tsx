@@ -11,6 +11,7 @@ interface IState{
   actual_ans: Array<string>;
   isQuizSubmitted: boolean;
   wrongAnsIndex: Array<string>;
+  countQuizAttempt: Number;
 }
 
 class PlayQuiz extends React.Component<{} , IState>{
@@ -28,6 +29,7 @@ class PlayQuiz extends React.Component<{} , IState>{
     actual_ans: [],
     isQuizSubmitted: false,
     wrongAnsIndex: [],
+    countQuizAttempt:0,
   };
   
   componentDidMount() {
@@ -77,6 +79,7 @@ class PlayQuiz extends React.Component<{} , IState>{
     
     this.setState({ 
       isQuizSubmitted: true,
+      countQuizAttempt: this.state.countQuizAttempt + 1
     });
 
     if (wrong_ans.length) {
@@ -101,7 +104,7 @@ class PlayQuiz extends React.Component<{} , IState>{
               {
                 this.state.isQuizSubmitted 
                 ? <div className="pull-right">
-                    <p>Total Attempt: 0 </p>
+                    <p>Total Attempt: {this.state.countQuizAttempt} </p>
                     <input type="button" value="Try again" className="btn btn-danger" />&nbsp;
                     <input type="button" value="Show answer" className="btn btn-success" />
                   </div>
