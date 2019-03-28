@@ -3,6 +3,8 @@ import ListQuestions from "./ListQuestions";
 import ListAnswerOptions from "./ListAnswerOptions";
 import AnswerDisplay from "./AnswerDisplay";
 
+import '../styles/main.css';
+
 interface IState{
   quiz_details:Object[];
 }
@@ -49,9 +51,7 @@ class PlayQuiz extends React.Component<{} , IState>{
                         <div className="col-md-4" key={data.question}>
                           <div className="panel panel-default">
                             <div className="panel-heading">
-                              <h2> 
                                 {data.question}
-                              </h2>
                             </div>
                                 
                             <div className="panel-body">
