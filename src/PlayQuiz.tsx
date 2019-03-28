@@ -15,6 +15,8 @@ class PlayQuiz extends React.Component<{} , IState>{
     super(props);
 
     this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+
   }
 
   public readonly state = {
@@ -43,6 +45,11 @@ class PlayQuiz extends React.Component<{} , IState>{
   handleChange(evt){
     const idx = Number(evt.target.dataset['index']);
     this.state.selectedAns[idx] = evt.target.value;
+    // console.log(this.state.selectedAns);
+  }
+
+  handleSubmit(evt) {
+    evt.preventDefault();
     console.log(this.state.selectedAns);
   }
 
@@ -58,7 +65,7 @@ class PlayQuiz extends React.Component<{} , IState>{
                 
               <div className="clearfix"> </div> <hr/>
 
-              <form className="form">
+              <form className="form" onSubmit={this.handleSubmit}>
                 <div className="row rowContainer"> 
                   {
                     this.state.quiz_details.map((data, index) => {
