@@ -55,7 +55,6 @@ public readonly state = {
                         <div className="col-md-4" key={data.question}>
                           <div className="panel panel-default">
                             <div className="panel-heading">
-                                {/* {data.question} */}
                                 <ListQuestions questionsList={data.question}/>
                             </div>
                                 
@@ -64,7 +63,7 @@ public readonly state = {
                             </div>
     
                             <div className="panel-footer">
-                              {data.correctAnswer}
+                              <AnswerDisplay correctAnswer={data.correctAnswer} />
                             </div>
                           </div>
                         </div>

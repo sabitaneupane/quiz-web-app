@@ -3,7 +3,9 @@ import * as React from 'react';
 class ListQuesitons extends React.Component<any, any> {
     constructor(props: any){
         super(props);
-        this.state = { question: this.props.questionsList };
+        this.state = { 
+            question: this.props.questionsList 
+        };
     }
 
 	render() {
