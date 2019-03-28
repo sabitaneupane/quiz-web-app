@@ -12,6 +12,7 @@ interface IState{
   isQuizSubmitted: boolean;
   wrongAnsIndex: Array<string>;
   countQuizAttempt: Number;
+  showAnswer: boolean
 }
 
 class PlayQuiz extends React.Component<{} , IState>{
@@ -21,6 +22,7 @@ class PlayQuiz extends React.Component<{} , IState>{
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.tryAgain = this.tryAgain.bind(this);
+    this.showAnswer = this.showAnswer.bind(this);
 
   }
 
@@ -31,6 +33,7 @@ class PlayQuiz extends React.Component<{} , IState>{
     isQuizSubmitted: false,
     wrongAnsIndex: [],
     countQuizAttempt:0,
+    showAnswer: false,
   };
   
   componentDidMount() {
@@ -101,7 +104,14 @@ class PlayQuiz extends React.Component<{} , IState>{
   tryAgain(){
     this.setState({ 
       isQuizSubmitted: false,
-      countQuizAttempt:0
+      countQuizAttempt:0,
+      showAnswer: false
+    });
+  }
+
+  showAnswer(){
+    this.setState({ 
+      showAnswer: true 
     });
   }
 
@@ -114,7 +124,7 @@ class PlayQuiz extends React.Component<{} , IState>{
                 ? <div className="pull-right">
                     <p>Total Attempt: {this.state.countQuizAttempt} </p>
                     <input type="button" value="Try again" className="btn btn-danger" onClick={this.tryAgain}/>&nbsp;
-                    <input type="button" value="Show answer" className="btn btn-success" />
+                    <input type="button" value="Show answer" className="btn btn-success" onClick={this.showAnswer}/>
                   </div>
                 : null
               }
@@ -137,9 +147,13 @@ class PlayQuiz extends React.Component<{} , IState>{
                             <ListAnswerOptions answerList={data.answers} question={data.question} index={index} change={this.handleChange}/>
                             </div>
     
-                            <div className="panel-footer">
-                              <AnswerDisplay correctAnswer={data.correctAnswer} />
-                            </div>
+                            {
+                              this.state.showAnswer 
+                              ? <div className="panel-footer">
+                                  <AnswerDisplay  correctAnswer={data.correctAnswer} />
+                              </div>
+                              : null
+                            }
                           </div>
                         </div>
                       );
