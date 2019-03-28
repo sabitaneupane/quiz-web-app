@@ -17,17 +17,12 @@
     font-size: 15px;   
 }
 
-
 .panel .optionsLabel{
     font-size: 12px;
     font-weight: normal;
 }
 
-
 .btnSubmit{
     width:200px;
 }
 
-body{
-    background: red;
-}
