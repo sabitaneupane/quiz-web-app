@@ -50,7 +50,7 @@ public readonly state = {
               <form className="form">
                 <div className="row rowContainer"> 
                   {
-                    this.state.quiz_details.map((data) => {
+                    this.state.quiz_details.map((data, index) => {
                       return(
                         <div className="col-md-4" key={data.question}>
                           <div className="panel panel-default">
@@ -59,7 +59,7 @@ public readonly state = {
                             </div>
                                 
                             <div className="panel-body">
-                              <ListAnswerOptions />
+                            <ListAnswerOptions answerList={data.answers} question={data.question} index={index} />
                             </div>
     
                             <div className="panel-footer">
