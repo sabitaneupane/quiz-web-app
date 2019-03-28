@@ -13,6 +13,8 @@ interface IState{
 class PlayQuiz extends React.Component<{} , IState>{
   constructor(props: any){
     super(props);
+
+    this.handleChange = this.handleChange.bind(this);
   }
 
   public readonly state = {
@@ -29,10 +31,9 @@ class PlayQuiz extends React.Component<{} , IState>{
       .then(res => res.json())
       .then(
         (response) => {
-          const responseArray = new Array<string>(response.quiz.length);
           this.setState({
             quiz_details: response.quiz,
-            selectedAns: responseArray.fill('')
+            selectedAns: new Array<string>(response.quiz.length).fill('')
           });
           console.log(this.state.quiz_details);
         }
@@ -42,6 +43,7 @@ class PlayQuiz extends React.Component<{} , IState>{
   handleChange(evt){
     const idx = Number(evt.target.dataset['index']);
     this.state.selectedAns[idx] = evt.target.value;
+    console.log(this.state.selectedAns);
   }
 
   render() {
