@@ -6,13 +6,13 @@ class ListAnswerOptions extends React.Component<any,any>{
     }
 
     render() {
-        const {question, answerList, index } = this.props;
+        const {question, answerList, change, index } = this.props;
         
         var answers = answerList.map(function(answer){
           return (
             <div key={answer}> 
               <label className="optionsLabel"> 
-                  <input type="radio" value={answer} name={question} data-index={index} />  
+                  <input type="radio" value={answer} name={question} data-index={index}  onChange={(evt) => change(evt)}/>  
                     &nbsp;&nbsp;{answer} 
                 </label> 
               </div>

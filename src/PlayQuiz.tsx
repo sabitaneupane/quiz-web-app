@@ -7,15 +7,19 @@ import '../styles/main.css';
 
 interface IState{
   quiz_details:Object[];
+  selectedAns:Array<string>;
 }
 
 class PlayQuiz extends React.Component<{} , IState>{
   constructor(props: any){
     super(props);
+
+    this.handleChange = this.handleChange.bind(this);
   }
 
-public readonly state = {
-    quiz_details: []
+  public readonly state = {
+    quiz_details: [],
+    selectedAns: [],
   };
   
   componentDidMount() {
@@ -28,11 +32,18 @@ public readonly state = {
       .then(
         (response) => {
           this.setState({
-            quiz_details: response.quiz
+            quiz_details: response.quiz,
+            selectedAns: new Array<string>(response.quiz.length).fill('')
           });
           console.log(this.state.quiz_details);
         }
       )
+  }
+
+  handleChange(evt){
+    const idx = Number(evt.target.dataset['index']);
+    this.state.selectedAns[idx] = evt.target.value;
+    console.log(this.state.selectedAns);
   }
 
   render() {
@@ -59,7 +70,7 @@ public readonly state = {
                             </div>
                                 
                             <div className="panel-body">
-                            <ListAnswerOptions answerList={data.answers} question={data.question} index={index} />
+                            <ListAnswerOptions answerList={data.answers} question={data.question} index={index} change={this.handleChange}/>
                             </div>
     
                             <div className="panel-footer">
