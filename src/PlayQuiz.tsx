@@ -10,7 +10,11 @@ interface IState{
 }
 
 class PlayQuiz extends React.Component<{} , IState>{
-  public readonly state = {
+  constructor(props: any){
+    super(props);
+  }
+
+public readonly state = {
     quiz_details: []
   };
   
@@ -46,20 +50,20 @@ class PlayQuiz extends React.Component<{} , IState>{
               <form className="form">
                 <div className="row rowContainer"> 
                   {
-                    this.state.quiz_details.map((data) => {
+                    this.state.quiz_details.map((data, index) => {
                       return(
                         <div className="col-md-4" key={data.question}>
                           <div className="panel panel-default">
                             <div className="panel-heading">
-                                {data.question}
+                                <ListQuestions questionsList={data.question}/>
                             </div>
                                 
                             <div className="panel-body">
-                              <ListAnswerOptions />
+                            <ListAnswerOptions answerList={data.answers} question={data.question} index={index} />
                             </div>
     
                             <div className="panel-footer">
-                              {data.correctAnswer}
+                              <AnswerDisplay correctAnswer={data.correctAnswer} />
                             </div>
                           </div>
                         </div>

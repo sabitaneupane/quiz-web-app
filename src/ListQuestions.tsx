@@ -1,13 +1,22 @@
 import * as React from 'react';
 
-class ListQuesitons extends React.Component{
-    render() {
-        return (
-            <div>
-                <h3> List Questions </h3>
-            </div>
-        )
+class ListQuesitons extends React.Component<any, any> {
+    constructor(props: any){
+        super(props);
+        this.state = { 
+            question: this.props.questionsList 
+        };
     }
+
+	render() {
+		return (
+            <div>
+                { this.state.question }
+            </div>
+        );
+	}
 }
 
 export default ListQuesitons;
+
+
