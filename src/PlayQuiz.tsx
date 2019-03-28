@@ -104,12 +104,15 @@ class PlayQuiz extends React.Component<{} , IState>{
   tryAgain(){
     this.setState({ 
       isQuizSubmitted: false,
-      countQuizAttempt:0
+      countQuizAttempt:0,
+      showAnswer: false
     });
   }
 
   showAnswer(){
-    this.setState({ showAnswer: true });
+    this.setState({ 
+      showAnswer: true 
+    });
   }
 
   render() {
@@ -144,7 +147,8 @@ class PlayQuiz extends React.Component<{} , IState>{
                             <ListAnswerOptions answerList={data.answers} question={data.question} index={index} change={this.handleChange}/>
                             </div>
     
-                            {this.state.showAnswer 
+                            {
+                              this.state.showAnswer 
                               ? <div className="panel-footer">
                                   <AnswerDisplay  correctAnswer={data.correctAnswer} />
                               </div>
