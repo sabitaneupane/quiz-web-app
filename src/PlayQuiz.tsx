@@ -8,6 +8,7 @@ import '../styles/main.css';
 interface IState{
   quiz_details:Object[];
   selectedAns:Array<string>;
+  actual_ans: Array<string>;
 }
 
 class PlayQuiz extends React.Component<{} , IState>{
@@ -22,6 +23,7 @@ class PlayQuiz extends React.Component<{} , IState>{
   public readonly state = {
     quiz_details: [],
     selectedAns: [],
+    actual_ans: []
   };
   
   componentDidMount() {
@@ -50,7 +52,12 @@ class PlayQuiz extends React.Component<{} , IState>{
 
   handleSubmit(evt) {
     evt.preventDefault();
-    console.log(this.state.selectedAns);
+    console.log("Selected answer : " + this.state.selectedAns);
+    console.log("Actual answer : " + this.state.actual_ans);
+  }
+
+  actualAns(ans){
+    this.state.actual_ans.push(ans);
   }
 
   render() {
@@ -69,6 +76,7 @@ class PlayQuiz extends React.Component<{} , IState>{
                 <div className="row rowContainer"> 
                   {
                     this.state.quiz_details.map((data, index) => {
+                      this.actualAns(data.correctAnswer)
                       return(
                         <div className="col-md-4" key={data.question}>
                           <div className="panel panel-default">
