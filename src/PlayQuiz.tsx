@@ -98,11 +98,15 @@ class PlayQuiz extends React.Component<{} , IState>{
         return (
             <div className="container">
               <h1> Quiz </h1>
-                <div className="pull-right">
+              {
+                this.state.isQuizSubmitted 
+                ? <div className="pull-right">
                     <p>Total Attempt: 0 </p>
                     <input type="button" value="Try again" className="btn btn-danger" />&nbsp;
-                    <input type="button" value="Show answer" className="btn btn-success"/>
-                </div>
+                    <input type="button" value="Show answer" className="btn btn-success" />
+                  </div>
+                : null
+              }
                 
               <div className="clearfix"> </div> <hr/>
 
