@@ -9,6 +9,8 @@ interface IState{
   quiz_details:Object[];
   selectedAns:Array<string>;
   actual_ans: Array<string>;
+  isQuizSubmitted: boolean;
+  wrongAnsIndex: Array<string>;
 }
 
 class PlayQuiz extends React.Component<{} , IState>{
@@ -23,7 +25,9 @@ class PlayQuiz extends React.Component<{} , IState>{
   public readonly state = {
     quiz_details: [],
     selectedAns: [],
-    actual_ans: []
+    actual_ans: [],
+    isQuizSubmitted: false,
+    wrongAnsIndex: [],
   };
   
   componentDidMount() {
@@ -69,11 +73,25 @@ class PlayQuiz extends React.Component<{} , IState>{
       }
     }
     // console.log("right ans = "+ correct_ans);
-    // console.log("wrong ans = "+ wrong_ans);   
+    // console.log("wrong ans = "+ wrong_ans);  
+    
+    this.setState({ 
+      isQuizSubmitted: true,
+    });
+
+    if (wrong_ans.length) {
+      this.setState({ wrongAnsIndex: wrong_ans });
+    }
+
   }
 
   actualAns(ans){
     this.state.actual_ans.push(ans);
+  }
+
+  validateAndDisplayAns(idx) {
+    const { wrongAnsIndex } = this.state;
+    return wrongAnsIndex.includes(idx) ? 'panel-danger' : 'panel-success';
   }
 
   render() {
@@ -95,7 +113,7 @@ class PlayQuiz extends React.Component<{} , IState>{
                       this.actualAns(data.correctAnswer)
                       return(
                         <div className="col-md-4" key={data.question}>
-                          <div className="panel panel-default">
+                          <div  className={`panel ${this.state.isQuizSubmitted ? this.validateAndDisplayAns(index): 'panel-default'} `}>
                             <div className="panel-heading">
                                 <ListQuestions questionsList={data.question}/>
                             </div>
