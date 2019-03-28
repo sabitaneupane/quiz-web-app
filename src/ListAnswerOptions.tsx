@@ -3,15 +3,10 @@ import * as React from 'react';
 class ListAnswerOptions extends React.Component<any,any>{
     constructor(props:any){
         super(props);
-        this.state = {
-            answerList: this.props.answerList,
-            question: this.props.question,
-            index: this.props.index,
-        };
     }
 
     render() {
-        const {question, answerList, index } = this.state;
+        const {question, answerList, index } = this.props;
         
         var answers = answerList.map(function(answer){
           return (
