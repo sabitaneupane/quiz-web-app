@@ -1,7 +1,7 @@
 {
-  "name": "typescript-sample-app",
+  "name": "react-typescript-sample-app",
   "version": "1.0.0",
-  "description": "Typescript sample app with react",
+  "description": "React sample app with typescript",
   "scripts": {
     "start": "webpack-dev-server --mode development --open",
     "build": "webpack --mode production"
