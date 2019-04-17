@@ -7,6 +7,7 @@ import {NavLink} from 'react-router-dom';
 import Questionslist from './quiz/Questionslist';
 import Answeroptionslist from './quiz/Answeroptionslist';
 import Answerdisplay from './quiz/Answerdisplay';
+import Score from './quiz/Score';
 
 interface IState{
     quiz_details:Object[];
@@ -20,6 +21,7 @@ interface IState{
     selectedAns: String;
     quizSubmitCompleted: Boolean;
     quizResult:Boolean;
+    scoreAchieved:Number;
 }
 
 class Playquiz extends React.Component<any, IState> {
@@ -48,6 +50,7 @@ class Playquiz extends React.Component<any, IState> {
         selectedAns: '',
         quizSubmitCompleted: false,
         quizResult:false,
+        scoreAchieved:0
     }
 
     componentDidMount() {
@@ -87,7 +90,8 @@ class Playquiz extends React.Component<any, IState> {
 
         if(correctAnswer === selectedAns){
             this.setState({
-                quizResult: true
+                quizResult: true,
+                scoreAchieved:this.state.scoreAchieved+1
             })
         }else{
             this.setState({
@@ -141,53 +145,61 @@ class Playquiz extends React.Component<any, IState> {
             <div>
                 <div className="quizContainer">
                     <div className="container">
-                        
-                        <div className="contentWrapper">
-                            <div className="detailscard">
-                                <div className="row">
-                                <p className="col-md-6"> Total score- <span>  16 </span> </p>
-                                <p className="col-md-6"> Question no- <span>  {this.state.questionsCounter} out of {this.state.totalQuestions} </span> </p>
+                        {
+                            !this.state.isQuizCompleted?
+                            <div className="playQuiz">
+                                <div className="contentWrapper">
+                                    <div className="detailscard">
+                                        <div className="row">
+                                        <p className="col-md-6"> Total score- <span>  {this.state.scoreAchieved} </span> </p>
+                                        <p className="col-md-6"> Question no- <span>  {this.state.questionsCounter} out of {this.state.totalQuestions} </span> </p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div className="quizCard">
+                                    {
+                                        <div key={this.state.question_id}>
+                                            <div className="questionHead"> 
+                                                <Questionslist questionsList={this.state.question}/>                  
+                                            </div> <hr/>
+                                                                            
+                                            <div className="answerList"> 
+                                                <Answeroptionslist answerList={this.state.answers} question_id={this.state.question_id} change={this.handleChange}/>
+                                            </div>
+                                                                        
+                                            {
+                                                this.state.quizSubmitCompleted ? 
+                                                    <div className="answerDisplay"> 
+                                                        {
+                                                            this.state.quizResult ? 
+                                                                <div> 
+                                                                    <div className="text-success"> Correct Answer </div>
+                                                                </div>
+                                                            :
+                                                                <div>
+                                                                    <div className="text-danger"> Wrong Answer </div> <br/>
+                                                                    <Answerdisplay  correctAnswer={this.state.correctAnswer}/>
+                                                                </div>
+                                                        }
+                                                        
+                                                    </div>
+                                                :
+                                                    null
+                                            }
+                                        </div>    
+                                    }
+
+                                    <div className="quizButtonWrapper">
+                                        {this.showButtons()}
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-
-                        <div className="quizCard">
-                            {
-                                <div key={this.state.question_id}>
-                                    <div className="questionHead"> 
-                                        <Questionslist questionsList={this.state.question}/>                  
-                                    </div> <hr/>
-                                                                    
-                                    <div className="answerList"> 
-                                        <Answeroptionslist answerList={this.state.answers} question_id={this.state.question_id} change={this.handleChange}/>
-                                    </div>
-                                                                
-                                    {
-                                        this.state.quizSubmitCompleted ? 
-                                            <div className="answerDisplay"> 
-                                                {
-                                                    this.state.quizResult ? 
-                                                        <div> 
-                                                            <div className="text-success"> Correct Answer </div>
-                                                        </div>
-                                                    :
-                                                        <div>
-                                                            <div className="text-danger"> Wrong Answer </div> <br/>
-                                                            <Answerdisplay  correctAnswer={this.state.correctAnswer}/>
-                                                        </div>
-                                                }
-                                                
-                                            </div>
-                                        :
-                                            <div>  </div>
-                                    }
-                                </div>    
-                            }
-
-                            <div className="quizButtonWrapper">
-                                {this.showButtons()}
+                            :
+                            <div>
+                                <Score scoreAchieved={this.state.scoreAchieved} totalQuestions={this.state.totalQuestions}/>
                             </div>
-                        </div>
+                        }
                     </div>
                 </div>
             </div>
