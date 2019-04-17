@@ -11,6 +11,12 @@ import Answerdisplay from './quiz/Answerdisplay';
 
 interface IState{
     quiz_details:Object[];
+    totalQuestions:Number;
+    questionsCounter:Number;
+    question_id:String;
+    question:String;
+    answers:Array<String>;
+    correctAnswer:String;
 }
 
 class Playquiz extends React.Component<any, IState> {
@@ -19,11 +25,17 @@ class Playquiz extends React.Component<any, IState> {
 
         this.FetchData = this.FetchData.bind(this);
         this.handleChange = this.handleChange.bind(this);
-
+        this.nextQuizDetails = this.nextQuizDetails.bind(this);
     }
 
     public readonly state = {
-        quiz_details: []
+        quiz_details: [],
+        totalQuestions:0,
+        questionsCounter:1,
+        question_id:'',
+        question:'',
+        answers:[],
+        correctAnswer:''
     }
 
     componentDidMount() {
@@ -37,17 +49,42 @@ class Playquiz extends React.Component<any, IState> {
             (response) => {
               this.setState({
                 quiz_details: response.quiz,
+                totalQuestions: response.quiz.length,
+                question_id: response.quiz[0].question_id,
+                question: response.quiz[0].question,
+                answers: response.quiz[0].answers,
+                correctAnswer: response.quiz[0].correctAnswer,
               });
+            
               console.log(this.state.quiz_details);
             }
-          )
+
+        )
     }
 
     handleChange(evt){
         console.log(evt.target.value);
     }
 
-	render() {
+    nextQuizDetails(){
+        const questionsCounter = this.state.questionsCounter;
+        const totalQuestions = this.state.totalQuestions;
+        
+        if(questionsCounter != totalQuestions){
+            this.setState({ 
+                question_id: this.state.quiz_details[questionsCounter].question_id,
+                question: this.state.quiz_details[questionsCounter].question,
+                answers: this.state.quiz_details[questionsCounter].answers,
+                correctAnswer: this.state.quiz_details[questionsCounter].correctAnswer,
+                questionsCounter:questionsCounter+1,
+            });
+        }else{
+            console.log("quiz finished");
+        }
+
+    }
+
+	render(){
 		return (
             <div>
                 <div className="quizContainer">
@@ -57,35 +94,31 @@ class Playquiz extends React.Component<any, IState> {
                             <div className="detailscard">
                                 <div className="row">
                                 <p className="col-md-6"> Total score- <span>  16 </span> </p>
-                                <p className="col-md-6"> Quiz attempt- <span>  16 out of 25 </span> </p>
+                                <p className="col-md-6"> Question no- <span>  {this.state.questionsCounter} out of {this.state.totalQuestions} </span> </p>
                                 </div>
                             </div>
                         </div>
 
                         <div className="quizCard">
                             {
-                                this.state.quiz_details.map((data, index) => {
-                                    return(
-                                        <div key={data.question_id}>
-                                            <div className="questionHead"> 
-                                                <Questionslist questionsList={data.question}/>                  
-                                            </div> <hr/>
-                                                                            
-                                            <div className="answerList"> 
-                                                <Answeroptionslist answerList={data.answers} question={data.question} index={index} change={this.handleChange}/>
-                                            </div>
-                                                                        
-                                            <div className="answerDisplay"> 
-                                                <Answerdisplay  correctAnswer={data.correctAnswer}/>
-                                            </div>
-                                        </div>    
-                                    );
-                                })
+                                <div key={this.state.question_id}>
+                                    <div className="questionHead"> 
+                                        <Questionslist questionsList={this.state.question}/>                  
+                                    </div> <hr/>
+                                                                    
+                                    <div className="answerList"> 
+                                        <Answeroptionslist answerList={this.state.answers} question_id={this.state.question_id} change={this.handleChange}/>
+                                    </div>
+                                                                
+                                    <div className="answerDisplay"> 
+                                        <Answerdisplay  correctAnswer={this.state.correctAnswer}/>
+                                    </div>
+                                </div>    
                             }
 
                             <div className="quizButtonWrapper">
-                                <button className="quizButton"> Done</button><br/>
-                                <br/> <NavLink className="playButton" to="/score">Next >></NavLink>
+                                <button className="quizButton"> Done </button><br/>
+                                <br/> <button className="playButton" onClick={this.nextQuizDetails}>Next >></button>
                             </div>
                         </div>
                     </div>
