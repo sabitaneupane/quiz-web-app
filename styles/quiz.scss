@@ -3,7 +3,7 @@
   }
 
   .contentWrapper{
-    padding-top: 40px;
+    padding-top: 50px;
   }
 
   .questionHead{
@@ -16,8 +16,8 @@
   .answerList{
     font: bold 22px Arial, Helvetica;
     text-align: center;
-    color:#e85981;
-    padding-top: 30px;
+    color:#ff6f98;
+    padding-top: 20px;
   }
 
   .answerOptions{
@@ -27,8 +27,8 @@
   .answerDisplay{
     font: bold 22px Arial, Helvetica;
     text-align: center;
-    color:#e85981;
-    padding-top: 50px;
+    color:#6b6a6a;
+    padding-top: 20px;
   }
 
   .quizButton{
@@ -59,4 +59,9 @@
     font: bold 18px Arial, Helvetica;
     color:#e85981;
     text-align: center;
+  }
+
+  .quizResultMessage{
+    font: bold 20px Arial, Helvetica;
+    color:#6b6a6a;
   }

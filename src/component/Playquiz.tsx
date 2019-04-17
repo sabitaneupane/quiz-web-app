@@ -16,7 +16,10 @@ interface IState{
     question:String;
     answers:Array<String>;
     correctAnswer:String;
-    enableNextButton: Boolean;
+    isQuizCompleted: Boolean;
+    selectedAns: String;
+    quizSubmitCompleted: Boolean;
+    quizResult:Boolean;
 }
 
 class Playquiz extends React.Component<any, IState> {
@@ -26,6 +29,7 @@ class Playquiz extends React.Component<any, IState> {
         this.FetchData = this.FetchData.bind(this);
         this.handleChange = this.handleChange.bind(this);
         this.nextQuizDetails = this.nextQuizDetails.bind(this);
+        this.handleQuizSubmitDoneButton = this.handleQuizSubmitDoneButton.bind(this);
     }
 
     public readonly props = {
@@ -39,7 +43,10 @@ class Playquiz extends React.Component<any, IState> {
         question:'',
         answers:[],
         correctAnswer:'',
-        enableNextButton: true
+        isQuizCompleted: false,
+        selectedAns: '',
+        quizSubmitCompleted: false,
+        quizResult:false,
     }
 
     componentDidMount() {
@@ -59,7 +66,6 @@ class Playquiz extends React.Component<any, IState> {
                 answers: response.quiz[0].answers,
                 correctAnswer: response.quiz[0].correctAnswer,
               });
-            
               console.log(this.state.quiz_details);
             }
 
@@ -67,7 +73,27 @@ class Playquiz extends React.Component<any, IState> {
     }
 
     handleChange(evt){
-        console.log(evt.target.value);
+        this.setState({
+            selectedAns: evt.target.value
+        });
+    }
+
+    handleQuizSubmitDoneButton(){
+        const {correctAnswer, selectedAns} = this.state;
+
+        if(correctAnswer === selectedAns){
+            this.setState({
+                quizResult: true
+            })
+        }else{
+            this.setState({
+                quizResult: false
+            })
+        }
+
+        this.setState({
+            quizSubmitCompleted:true
+        })
     }
 
     nextQuizDetails(){
@@ -81,14 +107,17 @@ class Playquiz extends React.Component<any, IState> {
                 answers: this.state.quiz_details[questionsCounter].answers,
                 correctAnswer: this.state.quiz_details[questionsCounter].correctAnswer,
                 questionsCounter:questionsCounter+1,
+                quizSubmitCompleted:false
             });
         }else{
             this.setState({ 
-                enableNextButton:false
+                isQuizCompleted:true
             })
         }
 
     }
+
+    
 
 	render(){
 		return (
@@ -116,19 +145,42 @@ class Playquiz extends React.Component<any, IState> {
                                         <Answeroptionslist answerList={this.state.answers} question_id={this.state.question_id} change={this.handleChange}/>
                                     </div>
                                                                 
-                                    <div className="answerDisplay"> 
-                                        <Answerdisplay  correctAnswer={this.state.correctAnswer}/>
-                                    </div>
+                                    {
+                                        this.state.quizSubmitCompleted ? 
+                                            <div className="answerDisplay"> 
+                                                {
+                                                    this.state.quizResult ? 
+                                                        <div> 
+                                                            <div className="text-success"> Correct Answer </div>
+                                                        </div>
+                                                    :
+                                                        <div>
+                                                            <div className="text-danger"> Wrong Answer </div> <br/>
+                                                            <Answerdisplay  correctAnswer={this.state.correctAnswer}/>
+                                                        </div>
+                                                }
+                                                
+                                            </div>
+                                        :
+                                            <div>  </div>
+                                    }
                                 </div>    
                             }
 
                             <div className="quizButtonWrapper">
-                                <button className="quizButton"> Done </button><br/>
+
                                 {
-                                    this.state.enableNextButton ?
+                                    !this.state.quizSubmitCompleted ? 
+                                        <div> <button className="quizButton" onClick={this.handleQuizSubmitDoneButton}> Done </button><br/> </div>
+                                    :
                                         <div> <br/> <button className="playButton" onClick={this.nextQuizDetails}>Next >></button> </div>
-                                    : 
+                                }
+                                
+                                {
+                                    this.state.isQuizCompleted ?
                                         <div> <br/> <NavLink className="playButton" to="/score"> View score </NavLink> </div>
+                                    : 
+                                        null
                                 }
                                 
                             </div>
