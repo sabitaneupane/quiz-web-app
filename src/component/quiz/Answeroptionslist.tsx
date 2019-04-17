@@ -7,9 +7,6 @@ class Answeroptionslist extends React.Component<any, any> {
 
 	render() {
         const {answerList, change, question_id } = this.props;
-
-        console.log(answerList)
-
 		return (
             <div>
                 {

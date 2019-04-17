@@ -8,7 +8,6 @@ import Questionslist from './quiz/Questionslist';
 import Answeroptionslist from './quiz/Answeroptionslist';
 import Answerdisplay from './quiz/Answerdisplay';
 
-
 interface IState{
     quiz_details:Object[];
     totalQuestions:Number;
@@ -17,6 +16,7 @@ interface IState{
     question:String;
     answers:Array<String>;
     correctAnswer:String;
+    enableNextButton: Boolean;
 }
 
 class Playquiz extends React.Component<any, IState> {
@@ -28,6 +28,9 @@ class Playquiz extends React.Component<any, IState> {
         this.nextQuizDetails = this.nextQuizDetails.bind(this);
     }
 
+    public readonly props = {
+    }
+
     public readonly state = {
         quiz_details: [],
         totalQuestions:0,
@@ -35,7 +38,8 @@ class Playquiz extends React.Component<any, IState> {
         question_id:'',
         question:'',
         answers:[],
-        correctAnswer:''
+        correctAnswer:'',
+        enableNextButton: true
     }
 
     componentDidMount() {
@@ -79,7 +83,9 @@ class Playquiz extends React.Component<any, IState> {
                 questionsCounter:questionsCounter+1,
             });
         }else{
-            console.log("quiz finished");
+            this.setState({ 
+                enableNextButton:false
+            })
         }
 
     }
@@ -118,7 +124,13 @@ class Playquiz extends React.Component<any, IState> {
 
                             <div className="quizButtonWrapper">
                                 <button className="quizButton"> Done </button><br/>
-                                <br/> <button className="playButton" onClick={this.nextQuizDetails}>Next >></button>
+                                {
+                                    this.state.enableNextButton ?
+                                        <div> <br/> <button className="playButton" onClick={this.nextQuizDetails}>Next >></button> </div>
+                                    : 
+                                        <div> <br/> <NavLink className="playButton" to="/score"> View score </NavLink> </div>
+                                }
+                                
                             </div>
                         </div>
                     </div>
