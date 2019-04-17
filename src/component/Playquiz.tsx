@@ -20,6 +20,7 @@ interface IState{
     selectedAns: String;
     quizSubmitCompleted: Boolean;
     quizResult:Boolean;
+    scoreAchieved:Number;
 }
 
 class Playquiz extends React.Component<any, IState> {
@@ -48,6 +49,7 @@ class Playquiz extends React.Component<any, IState> {
         selectedAns: '',
         quizSubmitCompleted: false,
         quizResult:false,
+        scoreAchieved:0
     }
 
     componentDidMount() {
@@ -87,7 +89,8 @@ class Playquiz extends React.Component<any, IState> {
 
         if(correctAnswer === selectedAns){
             this.setState({
-                quizResult: true
+                quizResult: true,
+                scoreAchieved:this.state.scoreAchieved+1
             })
         }else{
             this.setState({
@@ -145,7 +148,7 @@ class Playquiz extends React.Component<any, IState> {
                         <div className="contentWrapper">
                             <div className="detailscard">
                                 <div className="row">
-                                <p className="col-md-6"> Total score- <span>  16 </span> </p>
+                                <p className="col-md-6"> Total score- <span>  {this.state.scoreAchieved} </span> </p>
                                 <p className="col-md-6"> Question no- <span>  {this.state.questionsCounter} out of {this.state.totalQuestions} </span> </p>
                                 </div>
                             </div>
