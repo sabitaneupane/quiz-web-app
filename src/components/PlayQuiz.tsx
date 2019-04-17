@@ -3,7 +3,7 @@ import ListQuestions from "./ListQuestions";
 import ListAnswerOptions from "./ListAnswerOptions";
 import AnswerDisplay from "./AnswerDisplay";
 
-import '../../styles/main.css';
+import '../../styles/main.scss';
 
 interface IState{
   quiz_details:Object[];
@@ -106,14 +106,15 @@ class PlayQuiz extends React.Component<{} , IState>{
 
   validateAndDisplayAns(idx) {
     const { wrongAnsIndex } = this.state;
-    return wrongAnsIndex.includes(idx) ? 'panel-danger' : 'panel-success';
+    return wrongAnsIndex.includes(idx) ? 'bg-danger' : 'bg-success';
   }
 
   tryAgain(){
     this.setState({ 
       isQuizSubmitted: false,
       countQuizAttempt:0,
-      showAnswer: false
+      disableAnswerButton:true,
+      showAnswer: false,
     });
   }
 
@@ -146,18 +147,18 @@ class PlayQuiz extends React.Component<{} , IState>{
                       this.actualAns(data.correctAnswer)
                       return(
                         <div className="col-md-4" key={data.question}>
-                          <div  className={`panel ${this.state.isQuizSubmitted ? this.validateAndDisplayAns(index): 'panel-default'} `}>
-                            <div className="panel-heading">
+                          <div  className="card">
+                            <div className={`card-header ${this.state.isQuizSubmitted ? this.validateAndDisplayAns(index): 'bg-default'} `}>
                                 <ListQuestions questionsList={data.question}/>
                             </div>
                                 
-                            <div className="panel-body">
+                            <div className="card-body">
                             <ListAnswerOptions answerList={data.answers} question={data.question} index={index} change={this.handleChange}/>
                             </div>
     
                             {
                               this.state.showAnswer 
-                              ? <div className="panel-footer">
+                              ? <div className="card-footer">
                                   <AnswerDisplay  correctAnswer={data.correctAnswer} />
                               </div>
                               : null

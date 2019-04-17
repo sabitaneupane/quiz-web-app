@@ -3,21 +3,21 @@
     flex-wrap:wrap!important;
 }
 
-.panel{
+.card{
     border-radius: 0px;
     border: 1px solid #e0e0e0;
 }
 
-.panel .panel-heading {
+.card .card-header {
     border-color: #ddd;
     padding: 5px 10px;
 }
 
-.panel .panel-heading h3{
+.card .card-header h3{
     font-size: 15px;   
 }
 
-.panel .optionsLabel{
+.card .optionsLabel{
     font-size: 12px;
     font-weight: normal;
 }
