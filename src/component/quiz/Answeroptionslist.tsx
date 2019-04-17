@@ -6,31 +6,24 @@ class Answeroptionslist extends React.Component<any, any> {
     }
 
 	render() {
+        const {question, answerList, change, index } = this.props;
+
+        var answers = answerList.map(function(answer){
+            return (
+              <div key={answer} className="answerOptions"> 
+                <label className="optionsLabel"> 
+                    <input type="radio" value={answer} name={question} data-index={index}  onChange={(evt) => change(evt)}/>  
+                      &nbsp;&nbsp;{answer} 
+                  </label> 
+                </div>
+            );
+        });
+
 		return (
             <div>
-                                <div className="answerOptions"> 
-                                    <label className="optionsLabel"> 
-                                        <input type="radio" name="answer"/>  1,233 K  
-                                    </label>
-                                </div>
-
-                                <div className="answerOptions"> 
-                                    <label className="optionsLabel"> 
-                                        <input type="radio" name="answer"/>  5,778 K  
-                                    </label>
-                                </div>
-
-                                <div className="answerOptions"> 
-                                    <label className="optionsLabel"> 
-                                        <input type="radio" name="answer"/> 12,130 K  
-                                    </label>
-                                </div>
-
-                                <div className="answerOptions"> 
-                                    <label className="optionsLabel"> 
-                                        <input type="radio" name="answer"/> 101,300 K 
-                                    </label>
-                                </div>                 
+                <ul>
+                    {answers}
+                </ul>
             </div>
         );
 	}
