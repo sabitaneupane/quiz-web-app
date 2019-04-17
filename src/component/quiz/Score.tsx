@@ -1,5 +1,5 @@
 import * as React from 'react';
-import '../../styles/score.scss';
+import '../../../styles/score.scss';
 
 import {NavLink} from 'react-router-dom';
 
@@ -20,9 +20,9 @@ class Score extends React.Component<any, any> {
                         </div> 
 
                         <div className="quizScored">
-                            <span className="scoreCircle"> 15 </span>
+                            <span className="scoreCircle"> {this.props.scoreAchieved} </span>
                             <span className="scoreText"> out of </span>
-                            <span className="scoreCircle"> 18 </span>
+                            <span className="scoreCircle"> {this.props.totalQuestions} </span>
                         </div> 
                 
                         <p className="paragraph"> Wanna put yourself into test again? </p>
