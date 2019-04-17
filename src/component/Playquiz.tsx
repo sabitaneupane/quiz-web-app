@@ -1,6 +1,5 @@
 import * as React from 'react';
 import '../../styles/quiz.scss';
-import axios from 'axios';
 
 import {NavLink} from 'react-router-dom';
 
