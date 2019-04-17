@@ -30,6 +30,7 @@ class Playquiz extends React.Component<any, IState> {
         this.handleChange = this.handleChange.bind(this);
         this.nextQuizDetails = this.nextQuizDetails.bind(this);
         this.handleQuizSubmitDoneButton = this.handleQuizSubmitDoneButton.bind(this);
+        this.showButtons = this.showButtons.bind(this);
     }
 
     public readonly props = {
@@ -38,7 +39,7 @@ class Playquiz extends React.Component<any, IState> {
     public readonly state = {
         quiz_details: [],
         totalQuestions:0,
-        questionsCounter:1,
+        questionsCounter:0,
         question_id:'',
         question:'',
         answers:[],
@@ -54,6 +55,8 @@ class Playquiz extends React.Component<any, IState> {
     }
 
     FetchData(){
+        const questionsCounter = this.state.questionsCounter;
+
         fetch("https://sabitaneupane.github.io/sample-json-data/simple/quiz.json")
           .then(res => res.json())
           .then(
@@ -61,10 +64,11 @@ class Playquiz extends React.Component<any, IState> {
               this.setState({
                 quiz_details: response.quiz,
                 totalQuestions: response.quiz.length,
-                question_id: response.quiz[0].question_id,
-                question: response.quiz[0].question,
-                answers: response.quiz[0].answers,
-                correctAnswer: response.quiz[0].correctAnswer,
+                question_id: response.quiz[questionsCounter].question_id,
+                question: response.quiz[questionsCounter].question,
+                answers: response.quiz[questionsCounter].answers,
+                correctAnswer: response.quiz[questionsCounter].correctAnswer,
+                questionsCounter:questionsCounter+1,
               });
               console.log(this.state.quiz_details);
             }
@@ -102,12 +106,13 @@ class Playquiz extends React.Component<any, IState> {
         
         if(questionsCounter != totalQuestions){
             this.setState({ 
+                questionsCounter:questionsCounter+1,
                 question_id: this.state.quiz_details[questionsCounter].question_id,
                 question: this.state.quiz_details[questionsCounter].question,
                 answers: this.state.quiz_details[questionsCounter].answers,
                 correctAnswer: this.state.quiz_details[questionsCounter].correctAnswer,
-                questionsCounter:questionsCounter+1,
                 quizSubmitCompleted:false
+
             });
         }else{
             this.setState({ 
@@ -117,9 +122,21 @@ class Playquiz extends React.Component<any, IState> {
 
     }
 
+    showButtons(){
+        if(!this.state.quizSubmitCompleted){
+            return <div> <button className="quizButton" onClick={this.handleQuizSubmitDoneButton}> Done </button><br/> </div>
+        }else if(!this.state.isQuizCompleted){
+            return <div> <br/> <button className="playButton" onClick={this.nextQuizDetails}>Next >></button> </div>
+        }else if(this.state.isQuizCompleted){
+            return <div> <br/> <NavLink className="playButton" to="/score"> View score </NavLink> </div>
+        }else{
+            return null
+        }
+    }
     
 
 	render(){
+        console.log(this.state.isQuizCompleted);
 		return (
             <div>
                 <div className="quizContainer">
@@ -168,21 +185,7 @@ class Playquiz extends React.Component<any, IState> {
                             }
 
                             <div className="quizButtonWrapper">
-
-                                {
-                                    !this.state.quizSubmitCompleted ? 
-                                        <div> <button className="quizButton" onClick={this.handleQuizSubmitDoneButton}> Done </button><br/> </div>
-                                    :
-                                        <div> <br/> <button className="playButton" onClick={this.nextQuizDetails}>Next >></button> </div>
-                                }
-                                
-                                {
-                                    this.state.isQuizCompleted ?
-                                        <div> <br/> <NavLink className="playButton" to="/score"> View score </NavLink> </div>
-                                    : 
-                                        null
-                                }
-                                
+                                {this.showButtons()}
                             </div>
                         </div>
                     </div>
