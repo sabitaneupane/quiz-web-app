@@ -6,31 +6,21 @@ class Answeroptionslist extends React.Component<any, any> {
     }
 
 	render() {
+        const {answerList, change, question_id } = this.props;
 		return (
             <div>
-                                <div className="answerOptions"> 
-                                    <label className="optionsLabel"> 
-                                        <input type="radio" name="answer"/>  1,233 K  
-                                    </label>
-                                </div>
-
-                                <div className="answerOptions"> 
-                                    <label className="optionsLabel"> 
-                                        <input type="radio" name="answer"/>  5,778 K  
-                                    </label>
-                                </div>
-
-                                <div className="answerOptions"> 
-                                    <label className="optionsLabel"> 
-                                        <input type="radio" name="answer"/> 12,130 K  
-                                    </label>
-                                </div>
-
-                                <div className="answerOptions"> 
-                                    <label className="optionsLabel"> 
-                                        <input type="radio" name="answer"/> 101,300 K 
-                                    </label>
-                                </div>                 
+                {
+                    answerList.map(function(answer){
+                        return (
+                            <div key={answer} className="answerOptions"> 
+                                <label className="optionsLabel"> 
+                                    <input type="radio" value={answer} name={question_id} data-index={question_id}  onChange={(evt) => change(evt)}/>  
+                                    &nbsp;&nbsp;{answer} 
+                                </label> 
+                            </div>
+                        );
+                    })
+                }
             </div>
         );
 	}

@@ -8,7 +8,7 @@ class Answerdisplay extends React.Component<any, any> {
 	render() {
 		return (
             <div>
-                Correct ans: 5,778 K
+                Correct ans: {this.props.correctAnswer} 
             </div>
         );
 	}

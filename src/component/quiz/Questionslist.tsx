@@ -8,7 +8,7 @@ class Questionslist extends React.Component<any, any> {
 	render() {
 		return (
             <div>
-                How hot is the surface of the sun? 
+                {this.props.questionsList}
             </div>
         );
 	}
