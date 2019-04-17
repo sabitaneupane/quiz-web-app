@@ -84,7 +84,8 @@ class Playquiz extends React.Component<any, IState> {
         });
     }
 
-    handleQuizSubmitDoneButton(){
+    handleQuizSubmitDoneButton(e){
+        e.preventDefault();
         const {correctAnswer, selectedAns} = this.state;
 
         if(correctAnswer === selectedAns){
@@ -127,7 +128,7 @@ class Playquiz extends React.Component<any, IState> {
 
     showButtons(){
         if(!this.state.quizSubmitCompleted){
-            return <div> <button className="quizButton" onClick={this.handleQuizSubmitDoneButton}> Done </button><br/> </div>
+            return <div> <input type="submit" className="quizButton" value="Done"/>  <br/> </div>
         }else if(!this.state.isQuizCompleted){
             return <div> <br/> <button className="playButton" onClick={this.nextQuizDetails}>Next >></button> </div>
         }else if(this.state.isQuizCompleted){
@@ -156,7 +157,7 @@ class Playquiz extends React.Component<any, IState> {
                                     </div>
                                 </div>
 
-                                <div className="quizCard">
+                                <form className="quizCard" onSubmit={this.handleQuizSubmitDoneButton}>
                                     {
                                         <div key={this.state.question_id}>
                                             <div className="questionHead"> 
@@ -192,7 +193,7 @@ class Playquiz extends React.Component<any, IState> {
                                     <div className="quizButtonWrapper">
                                         {this.showButtons()}
                                     </div>
-                                </div>
+                                </form>
                             </div>
                             :
                             <div>

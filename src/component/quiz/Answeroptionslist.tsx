@@ -14,7 +14,7 @@ class Answeroptionslist extends React.Component<any, any> {
                         return (
                             <div key={answer} className="answerOptions"> 
                                 <label className="optionsLabel"> 
-                                    <input type="radio" value={answer} name={question_id} data-index={question_id}  onChange={(evt) => change(evt)}/>  
+                                    <input type="radio" value={answer} name={question_id} data-index={question_id} required onChange={(evt) => change(evt)}/>  
                                     &nbsp;&nbsp;{answer} 
                                 </label> 
                             </div>
