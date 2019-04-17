@@ -3,6 +3,10 @@ import '../../styles/quiz.scss';
 
 import {NavLink} from 'react-router-dom';
 
+import Questionslist from './quiz/Questionslist';
+import Answeroptionslist from './quiz/Answeroptionslist';
+import Answerdisplay from './quiz/Answerdisplay';
+
 class Playquiz extends React.Component<any, any> {
     constructor(props: any){
         super(props);
@@ -25,44 +29,21 @@ class Playquiz extends React.Component<any, any> {
 
                     <div className="quizCard">
                         <div className="questionHead"> 
-                        How hot is the surface of the sun? 
+                            <Questionslist />                  
                         </div> <hr/>
                                                         
-                            <div className="answerList"> 
-                                <div className="answerOptions"> 
-                                <label className="optionsLabel"> 
-                                    <input type="radio" name="answer"/>  1,233 K  
-                                </label>
-                                </div>
-
-                                <div className="answerOptions"> 
-                                <label className="optionsLabel"> 
-                                    <input type="radio" name="answer"/>  5,778 K  
-                                </label>
-                                </div>
-
-                                <div className="answerOptions"> 
-                                <label className="optionsLabel"> 
-                                    <input type="radio" name="answer"/> 12,130 K  
-                                </label>
-                                </div>
-
-                                <div className="answerOptions"> 
-                                <label className="optionsLabel"> 
-                                    <input type="radio" name="answer"/> 101,300 K 
-                                </label>
-                                </div>
-                            
-                            </div>
+                        <div className="answerList"> 
+                            <Answeroptionslist />
+                        </div>
                                                     
-                            <div className="answerDisplay"> 
-                            Correct ans: 5,778 K
-                            </div>
+                        <div className="answerDisplay"> 
+                            <Answerdisplay />
+                        </div>
 
-                            <div className="quizButtonWrapper">
+                        <div className="quizButtonWrapper">
                             <button className="quizButton"> Done</button><br/>
                             <br/> <NavLink className="playButton" to="/score">Next >></NavLink>
-                            </div>
+                        </div>
                     </div>
                         </div>
                         
