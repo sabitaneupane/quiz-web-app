@@ -3,7 +3,7 @@ import '../../styles/quiz.scss';
 
 import {NavLink} from 'react-router-dom';
 
-class Home extends React.Component<any, any> {
+class Playquiz extends React.Component<any, any> {
     constructor(props: any){
         super(props);
     }
@@ -72,6 +72,4 @@ class Home extends React.Component<any, any> {
 	}
 }
 
-export default Home;
-
-
+export default Playquiz;
