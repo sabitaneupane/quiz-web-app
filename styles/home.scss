@@ -1,0 +1,60 @@
+.quizContainer{
+    background: #ffffff;
+  }
+
+  .mainTitle{
+    font: bold 35px Arial, Helvetica;
+    text-align: center;
+    padding-top: 100px;
+    color:#ff2562;
+  }
+
+  .subTitle{
+    font: bold 22px Arial, Helvetica;
+    text-align: center;
+    color:#e85981;
+    padding-top: 30px;
+  }
+
+  .paragraph{
+    font: bold 18px Arial, Helvetica;
+    text-align: center;
+    color:#6b6a6a;
+    padding-top: 30px;
+  }
+
+  .card{
+    text-align: center;
+    border-radius: 0px;
+  }
+
+  .card-title{
+    font-size: 25px;
+  }
+
+  .categoryList{
+    padding-top: 50px;
+  }
+
+  .categoryItem{
+    padding:5px;
+  }
+
+  .playButton{
+    background: #16b174;
+    color:white;
+    border:0px;
+    border-radius: 0px;
+    padding: 10px 100px;
+  }
+
+  .playButton:hover{
+    background:#16b174;
+    text-decoration: none;
+    color:white;
+  }
+
+  .playButtonWrapper{
+    text-align: center;
+    padding-top: 30px;
+  }
