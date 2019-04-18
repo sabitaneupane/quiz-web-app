@@ -21,6 +21,7 @@ interface IState{
     quizSubmitCompleted: Boolean;
     quizResult:Boolean;
     scoreAchieved:Number;
+    isLoading:Boolean;
 }
 
 class Playquiz extends React.Component<any, IState> {
@@ -49,7 +50,8 @@ class Playquiz extends React.Component<any, IState> {
         selectedAns: '',
         quizSubmitCompleted: false,
         quizResult:false,
-        scoreAchieved:0
+        scoreAchieved:0,
+        isLoading:true
     }
 
     componentDidMount() {
@@ -71,6 +73,7 @@ class Playquiz extends React.Component<any, IState> {
                 answers: response.quiz[questionsCounter].answers,
                 correctAnswer: response.quiz[questionsCounter].correctAnswer,
                 questionsCounter:questionsCounter+1,
+                isLoading:false
               });
               console.log(this.state.quiz_details);
             }
@@ -144,7 +147,12 @@ class Playquiz extends React.Component<any, IState> {
 		return (
             <div>
                 <div className="quizContainer">
-                    <div className="container">
+
+                    {
+                        this.state.isLoading ?
+                            <div className="contentWrapper LoadingHead"> Loading </div> 
+                            :
+                            <div className="container">
                         {
                             !this.state.isQuizCompleted?
                             <div className="playQuiz">
@@ -201,7 +209,9 @@ class Playquiz extends React.Component<any, IState> {
                             </div>
                         }
                     </div>
-                </div>
+                
+                    }
+                    </div>
             </div>
         );
 	}
