@@ -1,9 +1,10 @@
 import * as React from 'react';
 
 const Answerdisplay = (props) => {
+    const {correctAnswer} = props;
 	return (
         <div>
-            Correct ans: {props.correctAnswer} 
+            Correct ans: {correctAnswer} 
         </div>
     );
 }
