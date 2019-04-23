@@ -59,7 +59,7 @@ class Playquiz extends React.Component<any, IState> {
     }
 
     // FetchData(){
-    //     const questionsCounter = this.state.questionsCounter;
+    //     const {questionsCounter,quiz_details} = this.state;
 
     //     fetch("https://sabitaneupane.github.io/sample-json-data/simple/quiz.json")
     //       .then(res => res.json())
@@ -75,14 +75,14 @@ class Playquiz extends React.Component<any, IState> {
     //             questionsCounter:questionsCounter+1,
     //             isLoading:false
     //           });
-    //           console.log(this.state.quiz_details);
+    //           console.log(quiz_details);
     //         }
 
     //     )
     // }
 
     FetchData(){
-        const questionsCounter = this.state.questionsCounter;
+        const {questionsCounter} = this.state;
 
         const data = {  
             "quiz":[  
@@ -230,12 +230,12 @@ class Playquiz extends React.Component<any, IState> {
 
     handleQuizSubmitDoneButton(e){
         e.preventDefault();
-        const {correctAnswer, selectedAns} = this.state;
+        const {correctAnswer, selectedAns, scoreAchieved} = this.state;
 
         if(correctAnswer === selectedAns){
             this.setState({
                 quizResult: true,
-                scoreAchieved:this.state.scoreAchieved+1
+                scoreAchieved:scoreAchieved+1
             })
         }else{
             this.setState({
@@ -249,16 +249,15 @@ class Playquiz extends React.Component<any, IState> {
     }
 
     nextQuizDetails(){
-        const questionsCounter = this.state.questionsCounter;
-        const totalQuestions = this.state.totalQuestions;
+        const {questionsCounter, totalQuestions, quiz_details} = this.state;
         
         if(questionsCounter != totalQuestions){
             this.setState({ 
                 questionsCounter:questionsCounter+1,
-                question_id: this.state.quiz_details[questionsCounter].question_id,
-                question: this.state.quiz_details[questionsCounter].question,
-                answers: this.state.quiz_details[questionsCounter].answers,
-                correctAnswer: this.state.quiz_details[questionsCounter].correctAnswer,
+                question_id: quiz_details[questionsCounter].question_id,
+                question: quiz_details[questionsCounter].question,
+                answers: quiz_details[questionsCounter].answers,
+                correctAnswer: quiz_details[questionsCounter].correctAnswer,
                 quizSubmitCompleted:false
             });
 
@@ -271,9 +270,11 @@ class Playquiz extends React.Component<any, IState> {
     }
 
     showButtons(){
-        if(!this.state.quizSubmitCompleted){
+        const {quizSubmitCompleted, isQuizCompleted} = this.state;
+
+        if(!quizSubmitCompleted){
             return <div> <input type="submit" className="quizButton" value="Done"/>  <br/> </div>
-        }else if(!this.state.isQuizCompleted){
+        }else if(!isQuizCompleted){
             return <div> <br/> <button className="playButton" onClick={this.nextQuizDetails}>Next >></button> </div>
         }else if(this.state.isQuizCompleted){
             return <div> <br/> <NavLink className="playButton" to="/score"> View score </NavLink> </div>
@@ -284,51 +285,64 @@ class Playquiz extends React.Component<any, IState> {
     
 
 	render(){
+        const {
+            isLoading, 
+            isQuizCompleted, 
+            scoreAchieved, 
+            questionsCounter, 
+            totalQuestions, 
+            question, 
+            answers, 
+            question_id, 
+            correctAnswer, 
+            quizSubmitCompleted, 
+            quizResult
+        } = this.state;
 
 		return (
             <div>
                 <div className="quizContainer">
 
                     {
-                        this.state.isLoading ?
+                        isLoading ?
                             <div className="contentWrapper LoadingHead"> Loading </div> 
                             :
                             <div className="container">
                         {
-                            !this.state.isQuizCompleted?
+                            !isQuizCompleted?
                             <div className="playQuiz">
                                 <div className="contentWrapper">
                                     <div className="detailscard">
                                         <div className="row">
-                                        <p className="col-md-6"> Total score- <span>  {this.state.scoreAchieved} </span> </p>
-                                        <p className="col-md-6"> Question no- <span>  {this.state.questionsCounter} out of {this.state.totalQuestions} </span> </p>
+                                        <p className="col-md-6"> Total score- <span>  {scoreAchieved} </span> </p>
+                                        <p className="col-md-6"> Question no- <span>  {questionsCounter} out of {totalQuestions} </span> </p>
                                         </div>
                                     </div>
                                 </div>
 
                                 <form className="quizCard" onSubmit={this.handleQuizSubmitDoneButton}>
                                     {
-                                        <div key={this.state.question_id}>
+                                        <div key={question_id}>
                                             <div className="questionHead"> 
-                                                <Questionslist questionsList={this.state.question}/>                  
+                                                <Questionslist questionsList={question}/>                  
                                             </div> <hr/>
                                                                             
                                             <div className="answerList"> 
-                                                <Answeroptionslist answerList={this.state.answers} question_id={this.state.question_id} change={this.handleChange}/>
+                                                <Answeroptionslist answerList={answers} question_id={question_id} change={this.handleChange}/>
                                             </div>
                                                                         
                                             {
-                                                this.state.quizSubmitCompleted ? 
+                                                quizSubmitCompleted ? 
                                                     <div className="answerDisplay"> 
                                                         {
-                                                            this.state.quizResult ? 
+                                                            quizResult ? 
                                                                 <div> 
                                                                     <div className="text-success"> Correct Answer </div>
                                                                 </div>
                                                             :
                                                                 <div>
                                                                     <div className="text-danger"> Wrong Answer </div> <br/>
-                                                                    <Answerdisplay  correctAnswer={this.state.correctAnswer}/>
+                                                                    <Answerdisplay  correctAnswer={correctAnswer}/>
                                                                 </div>
                                                         }
                                                         
@@ -346,7 +360,7 @@ class Playquiz extends React.Component<any, IState> {
                             </div>
                             :
                             <div>
-                                <Score scoreAchieved={this.state.scoreAchieved} totalQuestions={this.state.totalQuestions}/>
+                                <Score scoreAchieved={scoreAchieved} totalQuestions={totalQuestions}/>
                             </div>
                         }
                     </div>
