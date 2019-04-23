@@ -3,39 +3,33 @@ import '../../../styles/score.scss';
 
 import {NavLink} from 'react-router-dom';
 
-class Score extends React.Component<any, any> {
-    constructor(props: any){
-        super(props);
-    }
+const Score = (props) => {
+	return (
+        <div>
+            <div className="quizContainer">
+                <div className="container">
+                    <div className="contentWrapper">
+                    
+                    <div className="scoreHead"> 
+                        Total score
+                    </div> 
 
-	render() {
-		return (
-            <div>
-                <div className="quizContainer">
-                    <div className="container">
-                        <div className="contentWrapper">
+                    <div className="quizScored">
+                        <span className="scoreCircle"> {props.scoreAchieved} </span>
+                        <span className="scoreText"> out of </span>
+                        <span className="scoreCircle"> {props.totalQuestions} </span>
+                    </div> 
+            
+                    <p className="paragraph"> Wanna put yourself into test again? </p>
+                    <div className="playButtonWrapper">
+                        <NavLink className="playButton" to="/" exact>Goto home page >> </NavLink>
+                    </div>
                         
-                        <div className="scoreHead"> 
-                            Total score
-                        </div> 
-
-                        <div className="quizScored">
-                            <span className="scoreCircle"> {this.props.scoreAchieved} </span>
-                            <span className="scoreText"> out of </span>
-                            <span className="scoreCircle"> {this.props.totalQuestions} </span>
-                        </div> 
-                
-                        <p className="paragraph"> Wanna put yourself into test again? </p>
-                        <div className="playButtonWrapper">
-                            <NavLink className="playButton" to="/" exact>Goto home page >> </NavLink>
-                        </div>
-                            
-                        </div>
                     </div>
-                    </div>
+                </div>
             </div>
-        );
-	}
+        </div>
+    );
 }
 
 export default Score;
