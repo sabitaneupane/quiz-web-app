@@ -10,7 +10,6 @@ const Score = (props) => {
             <div className="quizContainer">
                 <div className="container">
                     <div className="contentWrapper">
-                    
                     <div className="scoreHead"> 
                         Total score
                     </div> 
