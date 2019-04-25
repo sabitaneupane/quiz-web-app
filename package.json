@@ -3,8 +3,9 @@
   "version": "1.0.0",
   "description": "React sample app with typescript",
   "scripts": {
-    "start": "webpack-dev-server --mode development --open",
-    "build": "webpack --mode production"
+    "start": "nodemon server.js",
+    "build": "webpack --mode production",
+    "dev": "webpack -d --watch"
   },
   "devDependencies": {
     "babel-core": "^6.26.3",
@@ -16,15 +17,17 @@
     "style-loader": "^0.23.1",
     "webpack": "^4.29.6",
     "webpack-cli": "^3.3.0",
-    "webpack-dev-server": "^3.2.1"
+    "webpack-dev-server": "^3.3.1"
   },
   "dependencies": {
     "@types/react": "^16.8.8",
     "@types/react-dom": "^16.8.3",
     "axios": "^0.18.0",
     "bootstrap": "^4.3.1",
+    "express": "^4.16.4",
     "jquery": "^3.4.0",
     "node-sass": "^4.11.0",
+    "nodemon": "^1.18.11",
     "popper.js": "^1.15.0",
     "react": "^16.5.2",
     "react-dom": "^16.5.2",
