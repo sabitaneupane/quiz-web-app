@@ -152,9 +152,6 @@ interface IState{
 
 class Playquiz extends React.Component<any, IState> {
 
-    public readonly props = {
-    }
-
     public readonly state = {
         quiz_details: [],
         totalQuestions:0,
