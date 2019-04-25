@@ -184,27 +184,6 @@ class Playquiz extends React.Component<any, IState> {
         this.FetchData();
     }
 
-    // FetchData(){
-    //     const {questionsCounter,quiz_details} = this.state;
-    //     fetch("https://sabitaneupane.github.io/sample-json-data/simple/quiz.json")
-    //       .then(res => res.json())
-    //       .then(
-    //         (response) => {
-    //           this.setState({
-    //             quiz_details: response.quiz,
-    //             totalQuestions: response.quiz.length,
-    //             question_id: response.quiz[questionsCounter].question_id,
-    //             question: response.quiz[questionsCounter].question,
-    //             answers: response.quiz[questionsCounter].answers,
-    //             correctAnswer: response.quiz[questionsCounter].correctAnswer,
-    //             questionsCounter:questionsCounter+1,
-    //             isLoading:false
-    //           });
-    //           console.log(quiz_details);
-    //         }
-    //     )
-    // }
-
     FetchData(){
         const {questionsCounter} = this.state;
         const data = quiz_data;
