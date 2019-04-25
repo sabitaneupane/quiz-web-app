@@ -151,18 +151,6 @@ interface IState{
 }
 
 class Playquiz extends React.Component<any, IState> {
-    constructor(props: any){
-        super(props);
-
-        this.FetchData = this.FetchData.bind(this);
-        this.handleChange = this.handleChange.bind(this);
-        this.nextQuizDetails = this.nextQuizDetails.bind(this);
-        this.handleQuizSubmitDoneButton = this.handleQuizSubmitDoneButton.bind(this);
-        this.showButtons = this.showButtons.bind(this);
-    }
-
-    public readonly props = {
-    }
 
     public readonly state = {
         quiz_details: [],
@@ -184,7 +172,7 @@ class Playquiz extends React.Component<any, IState> {
         this.FetchData();
     }
 
-    FetchData(){
+    FetchData = () => {
         const {questionsCounter} = this.state;
         const data = quiz_data;
 
@@ -200,13 +188,13 @@ class Playquiz extends React.Component<any, IState> {
           });
     }
 
-    handleChange(evt){
+    handleChange = (evt) => {
         this.setState({
             selectedAns: evt.target.value
         });
     }
 
-    handleQuizSubmitDoneButton(e){
+    handleQuizSubmitDoneButton = (e) => {
         e.preventDefault();
         const {correctAnswer, selectedAns, scoreAchieved} = this.state;
 
@@ -226,7 +214,7 @@ class Playquiz extends React.Component<any, IState> {
         })
     }
 
-    nextQuizDetails(){
+    nextQuizDetails = () => {
         const {questionsCounter, totalQuestions, quiz_details} = this.state;
         
         if(questionsCounter != totalQuestions){
@@ -247,7 +235,7 @@ class Playquiz extends React.Component<any, IState> {
 
     }
 
-    showButtons(){
+    showButtons = () => {
         const {quizSubmitCompleted, isQuizCompleted} = this.state;
 
         if(!quizSubmitCompleted){
