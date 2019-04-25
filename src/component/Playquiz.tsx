@@ -151,9 +151,6 @@ interface IState{
 }
 
 class Playquiz extends React.Component<any, IState> {
-    constructor(props: any){
-        super(props);
-    }
 
     public readonly props = {
     }
