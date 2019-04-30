@@ -172,20 +172,25 @@ class Playquiz extends React.Component<any, IState> {
         this.FetchData();
     }
 
-    FetchData = () => {
-        const {questionsCounter} = this.state;
-        const data = quiz_data;
-
-         this.setState({
-            quiz_details: data.quiz,
-            totalQuestions: data.quiz.length,
-            question_id: data.quiz[questionsCounter].question_id,
-            question: data.quiz[questionsCounter].question,
-            answers: data.quiz[questionsCounter].answers,
-            correctAnswer: data.quiz[questionsCounter].correctAnswer,
-            questionsCounter:questionsCounter+1,
-            isLoading:false
-          });
+    FetchData(){
+        const {questionsCounter,quiz_details} = this.state;
+        fetch("http://localhost:8080/api/bodyparser")
+          .then(res => res.json())
+          .then(
+            (response) => {
+              this.setState({
+                quiz_details: response.quiz,
+                totalQuestions: response.quiz.length,
+                question_id: response.quiz[questionsCounter].question_id,
+                question: response.quiz[questionsCounter].question,
+                answers: response.quiz[questionsCounter].answers,
+                correctAnswer: response.quiz[questionsCounter].correctAnswer,
+                questionsCounter:questionsCounter+1,
+                isLoading:false
+              });
+              console.log(quiz_details);
+            }
+        )
     }
 
     handleChange = (evt) => {
