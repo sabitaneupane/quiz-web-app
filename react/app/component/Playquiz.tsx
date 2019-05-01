@@ -47,7 +47,6 @@ class Playquiz extends React.Component<any, IState> {
     }
 
     FetchData(){
-        const {questionsCounter,quiz_details} = this.state;
         fetch("http://localhost:8080/api/quiz")
           .then(res => res.json())
           .then(
@@ -55,14 +54,9 @@ class Playquiz extends React.Component<any, IState> {
               this.setState({
                 quiz_details: response.quiz,
                 totalQuestions: response.quiz.length,
-                question_id: response.quiz[questionsCounter].question_id,
-                question: response.quiz[questionsCounter].question,
-                answers: response.quiz[questionsCounter].answers,
-                correctAnswer: response.quiz[questionsCounter].correctAnswer,
-                questionsCounter:questionsCounter+1,
                 isLoading:false
               });
-              console.log(quiz_details);
+              this.getQuizDetails()
             }
         )
     }
@@ -93,7 +87,7 @@ class Playquiz extends React.Component<any, IState> {
         })
     }
 
-    nextQuizDetails = () => {
+    getQuizDetails = () => {
         const {questionsCounter, totalQuestions, quiz_details} = this.state;
         
         if(questionsCounter != totalQuestions){
@@ -120,7 +114,7 @@ class Playquiz extends React.Component<any, IState> {
         if(!quizSubmitCompleted){
             return <div> <input type="submit" className="quizButton" value="Done"/>  <br/> </div>
         }else if(!isQuizCompleted){
-            return <div> <br/> <button className="playButton" onClick={this.nextQuizDetails}>Next >></button> </div>
+            return <div> <br/> <button className="playButton" onClick={this.getQuizDetails}>Next >></button> </div>
         }else if(this.state.isQuizCompleted){
             return <div> <br/> <NavLink className="playButton" to="/score"> View score </NavLink> </div>
         }else{
