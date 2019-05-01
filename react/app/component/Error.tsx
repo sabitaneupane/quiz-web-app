@@ -1,5 +1,5 @@
 import * as React from 'react';
-import '../../styles/error.scss';
+import '../../../styles/error.scss';
 
 import {NavLink} from 'react-router-dom';
 

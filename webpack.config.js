@@ -1,11 +1,12 @@
 const HtmlWebPackPlugin = require("html-webpack-plugin");
 
 const htmlWebpackPlugin = new HtmlWebPackPlugin({
-  template: "./public/index.html",
+  template: "./react/layout/index.html",
   filename: "./index.html"
 });
 
 module.exports = {
+  entry: './react/src/index.tsx',
   resolve: {
     extensions: ['.ts', '.tsx', '.js']
   },

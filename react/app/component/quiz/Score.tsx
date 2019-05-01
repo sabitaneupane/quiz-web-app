@@ -1,5 +1,5 @@
 import * as React from 'react';
-import '../../../styles/score.scss';
+import '../../../../styles/score.scss';
 
 import {NavLink} from 'react-router-dom';
 
