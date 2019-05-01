@@ -174,7 +174,7 @@ class Playquiz extends React.Component<any, IState> {
 
     FetchData(){
         const {questionsCounter,quiz_details} = this.state;
-        fetch("http://localhost:8080/api/bodyparser")
+        fetch("http://localhost:8080/api/quiz")
           .then(res => res.json())
           .then(
             (response) => {
