@@ -4,7 +4,7 @@ var path = require('path');
 const app = express();
 
 // --------------- Routers --------------
-var quizRouter = require('./api/routes');
+var quizRouter = require('./server/routes');
 app.use('/api/quiz', quizRouter);
 // --------------- Routers --------------
 
