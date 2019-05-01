@@ -6,7 +6,7 @@ const htmlWebpackPlugin = new HtmlWebPackPlugin({
 });
 
 module.exports = {
-  entry: './react/src/index.tsx',
+  entry: './react/app/index.tsx',
   resolve: {
     extensions: ['.ts', '.tsx', '.js']
   },
