@@ -6,5 +6,8 @@ module.exports = {
     setupFiles: ['<rootDir>/jest/setupTests.js'],
     testEnvironment: 'jsdom',
     transformIgnorePatterns: ['<rootDir>/node_modules/'],
-    verbose: false,
+    verbose: true,
+    transform: {
+      "^.+\\.js$": "<rootDir>/node_modules/babel-jest"
+    }
   };
