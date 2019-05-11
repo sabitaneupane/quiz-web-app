@@ -144,7 +144,7 @@ class Playquiz extends React.Component<any, IState> {
 
                     {
                         isLoading ?
-                            <div className="contentWrapper LoadingHead"> Loading </div>
+                            <div className="contentWrapper LoadingHead">Loading...</div>
                             :
                             <div className="container">
                                 {
