@@ -8,6 +8,8 @@ import Answeroptionslist from './quiz/Answeroptionslist';
 import Answerdisplay from './quiz/Answerdisplay';
 import Score from './quiz/Score';
 
+import axios from 'axios';
+
 interface IState {
     quiz_details: Object[];
     totalQuestions: Number;
@@ -47,18 +49,31 @@ class Playquiz extends React.Component<any, IState> {
     }
 
     FetchData() {
-        fetch("http://localhost:8080/api/quiz")
-            .then(res => res.json())
-            .then(
-                (response) => {
-                    this.setState({
-                        quiz_details: response.quiz,
-                        totalQuestions: response.quiz.length,
-                        isLoading: false
-                    });
-                    this.getQuizDetails()
-                }
-            )
+        // fetch("http://localhost:8080/api/quiz")
+        //     .then(res => res.json())
+        //     .then(
+        //         (response) => {
+        //             this.setState({
+        //                 quiz_details: response.quiz,
+        //                 totalQuestions: response.quiz.length,
+        //                 isLoading: false
+        //             });
+        //             this.getQuizDetails()
+        //         }
+        //     )
+
+        axios.get("http://localhost:8080/api/quiz")
+            .then ((response) => {
+                this.setState({
+                    quiz_details: response.data.quiz,
+                    totalQuestions: response.data.quiz.length,
+                    isLoading: false
+                });
+                this.getQuizDetails()
+            })
+            .catch((error) => {
+                console.log(error);
+        });
     }
 
     handleChange = (evt) => {
