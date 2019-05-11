@@ -8,7 +8,7 @@ const Error = (props) => {
         <div>
             <div className="quizContainer">
                 <div className="container"> 
-                <h1 className="mainTitle"> Page not found </h1> 
+                <h1 className="mainTitle">Page not found</h1> 
                 <div className="playButtonWrapper">
                     <NavLink className="playButton" to="/" exact>Goto home page >> </NavLink>
                 </div>
