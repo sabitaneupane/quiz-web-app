@@ -40,6 +40,13 @@ describe('<Playquiz />', () => {
         expect(wrapper.state().isLoading).toEqual(true);
     });
 
+    //problem
+    // describe('Correct elements are present', () => {
+    //     it('Should have given classes and elements', () => {
+    //         expect(wrapper.find('.container')).toHaveLength(1);
+    //     });
+    // });
+    
     describe('Component  ', () => {
         it('should render LoadingHead with appropriate text', () => {
             expect(wrapper.find('.LoadingHead').text()).toBe('Loading...');
