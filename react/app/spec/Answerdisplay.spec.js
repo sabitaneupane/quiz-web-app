@@ -3,7 +3,7 @@ import * as React from 'react';
 
 import AnswerDisplay from '../component/quiz/Answerdisplay';
 
-describe('<Playquiz />', () => {
+describe('<AnswerDisplay />', () => {
     const wrapper = shallow(<AnswerDisplay correctAnswer="option 4"/>);
 
     describe('Component  ', () => {

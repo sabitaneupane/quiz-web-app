@@ -3,7 +3,7 @@ import * as React from 'react';
 
 import Answeroptionslist from '../component/quiz/Answeroptionslist';
 
-describe('<Playquiz />', () => {
+describe('<Answeroptionslist />', () => {
     const wrapper = shallow(<Answeroptionslist />);
     
     describe('Component  ', () => {
