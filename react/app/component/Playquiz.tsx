@@ -50,7 +50,7 @@ class Playquiz extends React.Component<any, IState> {
 
     FetchData() {
         axios.get("http://localhost:8080/api/quiz")
-            .then ((response) => {
+            .then((response) => {
                 this.setState({
                     quiz_details: response.data.quiz,
                     totalQuestions: response.data.quiz.length,
@@ -60,7 +60,7 @@ class Playquiz extends React.Component<any, IState> {
             })
             .catch((error) => {
                 console.log(error);
-        });
+            });
     }
 
     handleChange = (evt) => {
@@ -162,19 +162,19 @@ class Playquiz extends React.Component<any, IState> {
                                             </div>
 
                                             <form className="quizCard" onSubmit={this.handleQuizSubmitDoneButton}>
-                                                {
-                                                    <div key={question_id}>
-                                                        <div className="questionHead">
-                                                            <Questionslist questionsList={question} />
-                                                        </div> <hr />
+                                                <div key={question_id}>
+                                                    <div className="questionHead">
+                                                        <Questionslist questionsList={question} />
+                                                    </div> <hr />
 
-                                                        <div className="answerList">
-                                                            <Answeroptionslist answerList={answers} question_id={question_id} change={this.handleChange} />
-                                                        </div>
+                                                    <div className="answerList">
+                                                        <Answeroptionslist answerList={answers} question_id={question_id} change={this.handleChange} />
+                                                    </div>
 
+                                                    <div className="answerDisplay">
                                                         {
                                                             quizSubmitCompleted ?
-                                                                <div className="answerDisplay">
+                                                                <div>
                                                                     {
                                                                         quizResult ?
                                                                             <div>
@@ -192,7 +192,7 @@ class Playquiz extends React.Component<any, IState> {
                                                                 null
                                                         }
                                                     </div>
-                                                }
+                                                </div>
 
                                                 <div className="quizButtonWrapper">
                                                     {this.showButtons()}
