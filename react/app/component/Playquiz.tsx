@@ -45,10 +45,10 @@ class Playquiz extends React.Component<any, IState> {
     }
 
     componentDidMount() {
-        this.FetchData();
+        this.fetchData();
     }
 
-    FetchData() {
+    fetchData() {
         axios.get("http://localhost:8080/api/quiz")
             .then((response) => {
                 this.setState({
@@ -200,7 +200,7 @@ class Playquiz extends React.Component<any, IState> {
                                             </form>
                                         </div>
                                         :
-                                        <div>
+                                        <div className="scoreAchieved">
                                             <Score scoreAchieved={scoreAchieved} totalQuestions={totalQuestions} />
                                         </div>
                                 }
