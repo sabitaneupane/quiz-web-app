@@ -3,7 +3,7 @@ import * as React from 'react';
 const Answeroptionslist = (props) => {
     const {answerList, change, question_id } = props;
 	return (
-        <div>
+        <div className="answerOptionsList">
             {
                 answerList.map(function(answer){
                     return (

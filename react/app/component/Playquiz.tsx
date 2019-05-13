@@ -49,19 +49,6 @@ class Playquiz extends React.Component<any, IState> {
     }
 
     FetchData() {
-        // fetch("http://localhost:8080/api/quiz")
-        //     .then(res => res.json())
-        //     .then(
-        //         (response) => {
-        //             this.setState({
-        //                 quiz_details: response.quiz,
-        //                 totalQuestions: response.quiz.length,
-        //                 isLoading: false
-        //             });
-        //             this.getQuizDetails()
-        //         }
-        //     )
-
         axios.get("http://localhost:8080/api/quiz")
             .then ((response) => {
                 this.setState({

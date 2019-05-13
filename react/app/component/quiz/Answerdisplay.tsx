@@ -3,7 +3,7 @@ import * as React from 'react';
 const Answerdisplay = (props) => {
     const {correctAnswer} = props;
 	return (
-        <div>
+        <div className="correctAnswer">
             Correct ans: {correctAnswer} 
         </div>
     );
