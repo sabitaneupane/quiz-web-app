@@ -56,7 +56,7 @@ class Playquiz extends React.Component<any, IState> {
                     totalQuestions: response.data.quiz.length,
                     isLoading: false
                 });
-                this.getQuizDetails()
+                this.getQuizDetails();
             })
             .catch((error) => {
                 console.log(error);

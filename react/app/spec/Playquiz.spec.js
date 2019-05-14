@@ -1,9 +1,38 @@
 import { shallow } from 'enzyme';
 import * as React from 'react';
+import moxios from 'moxios';
 
 import Playquiz from '../component/Playquiz';
 
-let fetchData;
+let datafetch;
+
+const quiz = {
+    "quiz": [
+        {
+            "question_id": 1,
+            "question": "question 1",
+            "answers": [
+                "Option 1",
+                "Option 2",
+                "Option 3",
+                "Option 4",
+            ],
+            "correctAnswer": "Option 1"
+        },
+        {
+            "question_id": 2,
+            "question": "question 2",
+            "answers": [
+                "Option 1",
+                "Option 2",
+                "Option 3",
+                "Option 4",
+            ],
+            "correctAnswer": "Option 3"
+        }
+    ]
+};
+
 describe('<Playquiz />', () => {
 
     describe('States are defined', () => {
@@ -72,16 +101,16 @@ describe('<Playquiz />', () => {
         const wrapper = shallow(<Playquiz />);
 
         beforeAll(() => {
-            fetchData = jest.spyOn(Playquiz.prototype, 'fetchData').mockImplementation(() => true);
+            datafetch = jest.spyOn(Playquiz.prototype, 'fetchData').mockImplementation(() => true);
         });
 
         afterAll(() => {
-            fetchData.mockRestore();
+            datafetch.mockRestore();
         });
 
         it('should fetch fetchData', () => {
             shallow(<Playquiz />)
-            expect(fetchData.mock.calls.length).toBe(1);
+            expect(datafetch.mock.calls.length).toBe(1);
         });
     });
 
@@ -116,5 +145,27 @@ describe('<Playquiz />', () => {
             expect(wrapper.state().quizResult).toBe(false);
         });
     });
+
+    describe('Function getQuizDetails', () => {
+        it('Should set value when questionsCounter doesnot matches with totalQuestions', () => {
+            const wrapper = shallow(<Playquiz />);
+            wrapper.setState({ questionsCounter: 1, totalQuestions: 3, quiz_details: quiz.quiz });
+            wrapper.instance().getQuizDetails();
+            expect(wrapper.state().questionsCounter).toBe(2);
+            expect(wrapper.state().question_id).toBe(2);
+            expect(wrapper.state().question).toBe('question 2');
+            expect(wrapper.state().answers).toEqual(["Option 1", "Option 2", "Option 3", "Option 4"]);
+            expect(wrapper.state().correctAnswer).toBe("Option 3");
+            expect(wrapper.state().quizSubmitCompleted).toBe(false);
+        });
+
+        it('Should set value when questionsCounter matches with totalQuestions', () => {
+            const wrapper = shallow(<Playquiz />);
+            wrapper.setState({ questionsCounter: 3, totalQuestions: 3 });
+            wrapper.instance().getQuizDetails();
+            expect(wrapper.state().isQuizCompleted).toBe(true);
+        });
+    });
+    
 });
 
