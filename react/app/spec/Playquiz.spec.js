@@ -84,5 +84,37 @@ describe('<Playquiz />', () => {
             expect(fetchData.mock.calls.length).toBe(1);
         });
     });
+
+    describe('Function handleChange', () => {
+        const wrapper = shallow(<Playquiz />);
+
+        it('Should set value on handleChange', () => {
+            wrapper.instance().handleChange({ target: { value: '1234567890123' } });
+            expect(wrapper.state().selectedAns).toBe('1234567890123');
+        });
+    });
+
+    describe('Function handleQuizSubmitDoneButton', () => {
+        it('Should set value true on quizSubmitCompleted', () => {
+            const wrapper = shallow(<Playquiz />);
+            wrapper.instance().handleQuizSubmitDoneButton({ preventDefault: jest.fn() });
+            expect(wrapper.state().quizSubmitCompleted).toBe(true);
+        });
+
+        it('Should set value when correctAnswer matches with selectedAns', () => {
+            const wrapper = shallow(<Playquiz />);
+            wrapper.setState({ correctAnswer: '3', selectedAns: '3', scoreAchieved: 3 });
+            wrapper.instance().handleQuizSubmitDoneButton({ preventDefault: jest.fn() });
+            expect(wrapper.state().quizResult).toBe(true);
+            expect(wrapper.state().scoreAchieved).toBe(4);
+        });
+
+        it('Should set value when correctAnswer doesnot matches with selectedAns', () => {
+            const wrapper = shallow(<Playquiz />);
+            wrapper.setState({ correctAnswer: '2', selectedAns: '3' });
+            wrapper.instance().handleQuizSubmitDoneButton({ preventDefault: jest.fn() });
+            expect(wrapper.state().quizResult).toBe(false);
+        });
+    });
 });
 
