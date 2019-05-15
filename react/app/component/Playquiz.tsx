@@ -48,7 +48,7 @@ class Playquiz extends React.Component<any, IState> {
         this.fetchData();
     }
 
-    fetchData() {
+    public fetchData = () => {
         axios.get("http://localhost:8080/api/quiz")
             .then((response) => {
                 this.setState({
@@ -63,13 +63,13 @@ class Playquiz extends React.Component<any, IState> {
             });
     }
 
-    handleChange = (evt) => {
+    public handleChange = (evt) => {
         this.setState({
             selectedAns: evt.target.value
         });
     }
 
-    handleQuizSubmitDoneButton = (e) => {
+    public handleQuizSubmitDoneButton = (e) => {
         e.preventDefault();
         const { correctAnswer, selectedAns, scoreAchieved } = this.state;
 
@@ -89,7 +89,7 @@ class Playquiz extends React.Component<any, IState> {
         })
     }
 
-    getQuizDetails = () => {
+    public getQuizDetails = () => {
         const { questionsCounter, totalQuestions, quiz_details } = this.state;
 
         if (questionsCounter != totalQuestions) {
@@ -110,7 +110,7 @@ class Playquiz extends React.Component<any, IState> {
 
     }
 
-    showButtons = () => {
+    public showButtons = () => {
         const { isQuizSubmitCompleted, isQuizCompleted } = this.state;
 
         if (!isQuizSubmitCompleted) {
