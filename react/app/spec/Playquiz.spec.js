@@ -47,7 +47,7 @@ describe('<Playquiz />', () => {
             expect(wrapper.state().correctAnswer).toBeDefined();
             expect(wrapper.state().isQuizCompleted).toBeDefined();
             expect(wrapper.state().selectedAns).toBeDefined();
-            expect(wrapper.state().quizSubmitCompleted).toBeDefined();
+            expect(wrapper.state().isQuizSubmitCompleted).toBeDefined();
             expect(wrapper.state().quizResult).toBeDefined();
             expect(wrapper.state().scoreAchieved).toBeDefined();
             expect(wrapper.state().isLoading).toBeDefined();
@@ -63,7 +63,7 @@ describe('<Playquiz />', () => {
             expect(wrapper.state().correctAnswer).toEqual('');
             expect(wrapper.state().isQuizCompleted).toEqual(false);
             expect(wrapper.state().selectedAns).toEqual('');
-            expect(wrapper.state().quizSubmitCompleted).toEqual(false);
+            expect(wrapper.state().isQuizSubmitCompleted).toEqual(false);
             expect(wrapper.state().quizResult).toEqual(false);
             expect(wrapper.state().scoreAchieved).toEqual(0);
             expect(wrapper.state().isLoading).toEqual(true);
@@ -124,10 +124,10 @@ describe('<Playquiz />', () => {
     });
 
     describe('Function handleQuizSubmitDoneButton', () => {
-        it('Should set value true on quizSubmitCompleted', () => {
+        it('Should set value true on isQuizSubmitCompleted', () => {
             const wrapper = shallow(<Playquiz />);
             wrapper.instance().handleQuizSubmitDoneButton({ preventDefault: jest.fn() });
-            expect(wrapper.state().quizSubmitCompleted).toBe(true);
+            expect(wrapper.state().isQuizSubmitCompleted).toBe(true);
         });
 
         it('Should set value when correctAnswer matches with selectedAns', () => {
@@ -156,7 +156,7 @@ describe('<Playquiz />', () => {
             expect(wrapper.state().question).toBe('question 2');
             expect(wrapper.state().answers).toEqual(["Option 1", "Option 2", "Option 3", "Option 4"]);
             expect(wrapper.state().correctAnswer).toBe("Option 3");
-            expect(wrapper.state().quizSubmitCompleted).toBe(false);
+            expect(wrapper.state().isQuizSubmitCompleted).toBe(false);
         });
 
         it('Should set value when questionsCounter matches with totalQuestions', () => {
@@ -164,6 +164,24 @@ describe('<Playquiz />', () => {
             wrapper.setState({ questionsCounter: 3, totalQuestions: 3 });
             wrapper.instance().getQuizDetails();
             expect(wrapper.state().isQuizCompleted).toBe(true);
+        });
+    });
+
+    describe('Function showButtons', () => {
+        it('Should render done button when isQuizSubmitCompleted is false', () => {
+            const wrapper = shallow(<Playquiz />);
+            wrapper.setState({ isQuizSubmitCompleted: false, isLoading: false, isQuizCompleted: false });
+            wrapper.instance().showButtons();
+            expect(wrapper.find('.quizButton')).toHaveLength(1);
+            expect(wrapper.find('.quizButton').text()).toBe('Done');
+        });
+
+        it('Should render next button when isQuizSubmitCompleted is true and isQuizCompleted is false', () => {
+            const wrapper = shallow(<Playquiz />);
+            wrapper.setState({ isQuizSubmitCompleted: true, isLoading: false, isQuizCompleted: false });
+            wrapper.instance().showButtons();
+            expect(wrapper.find('.playButton')).toHaveLength(1);
+            expect(wrapper.find('.playButton').text()).toBe('Next >>');
         });
     });
     
