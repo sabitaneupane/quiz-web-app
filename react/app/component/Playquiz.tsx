@@ -48,7 +48,7 @@ class Playquiz extends React.Component<any, IState> {
         this.fetchData();
     }
 
-    public fetchData = () => {
+    public fetchData(){
         axios.get("http://localhost:8080/api/quiz")
             .then((response) => {
                 this.setState({

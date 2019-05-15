@@ -109,9 +109,36 @@ describe('<Playquiz />', () => {
         });
 
         it('should fetch fetchData', () => {
-            shallow(<Playquiz />)
+            wrapper.instance().fetchData();
             expect(datafetch.mock.calls.length).toBe(1);
         });
+    });
+
+    describe('Function fetchData', () => {
+        //not working
+
+    //     const wrapper = shallow(<Playquiz />);
+
+    //     beforeEach(() => {
+    //         moxios.install();
+    //     });
+    //     afterEach(() => {
+    //         moxios.uninstall();
+    //     });
+
+    //     it('fetch data', () => {
+    //         moxios.wait(() => {
+    //             const request = moxios.requests.at(0);
+    //             request.respondWith({
+    //                 status: 200,
+    //                 response: quiz
+    //             });
+    //         });
+
+    //         return wrapper.instance().fetchData().then(response => {
+    //             expect(wrapper.state(response).quiz_details).toBe('');
+    //         });
+    //     });
     });
 
     describe('Function handleChange', () => {
@@ -184,6 +211,6 @@ describe('<Playquiz />', () => {
             expect(wrapper.find('.playButton').text()).toBe('Next >>');
         });
     });
-    
+
 });
 

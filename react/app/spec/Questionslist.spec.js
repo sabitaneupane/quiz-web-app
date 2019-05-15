@@ -17,6 +17,5 @@ describe('<Questionslist />', () => {
             });
         });
     });
-l
 });
 
