@@ -20,7 +20,7 @@ interface IState {
     correctAnswer: String;
     isQuizCompleted: Boolean;
     selectedAns: String;
-    quizSubmitCompleted: Boolean;
+    isQuizSubmitCompleted: Boolean;
     quizResult: Boolean;
     scoreAchieved: Number;
     isLoading: Boolean;
@@ -38,51 +38,38 @@ class Playquiz extends React.Component<any, IState> {
         correctAnswer: '',
         isQuizCompleted: false,
         selectedAns: '',
-        quizSubmitCompleted: false,
+        isQuizSubmitCompleted: false,
         quizResult: false,
         scoreAchieved: 0,
         isLoading: true
     }
 
     componentDidMount() {
-        this.FetchData();
+        this.fetchData();
     }
 
-    FetchData() {
-        // fetch("http://localhost:8080/api/quiz")
-        //     .then(res => res.json())
-        //     .then(
-        //         (response) => {
-        //             this.setState({
-        //                 quiz_details: response.quiz,
-        //                 totalQuestions: response.quiz.length,
-        //                 isLoading: false
-        //             });
-        //             this.getQuizDetails()
-        //         }
-        //     )
-
+    public fetchData(){
         axios.get("http://localhost:8080/api/quiz")
-            .then ((response) => {
+            .then((response) => {
                 this.setState({
                     quiz_details: response.data.quiz,
                     totalQuestions: response.data.quiz.length,
                     isLoading: false
                 });
-                this.getQuizDetails()
+                this.getQuizDetails();
             })
             .catch((error) => {
                 console.log(error);
-        });
+            });
     }
 
-    handleChange = (evt) => {
+    public handleChange = (evt) => {
         this.setState({
             selectedAns: evt.target.value
         });
     }
 
-    handleQuizSubmitDoneButton = (e) => {
+    public handleQuizSubmitDoneButton = (e) => {
         e.preventDefault();
         const { correctAnswer, selectedAns, scoreAchieved } = this.state;
 
@@ -98,11 +85,11 @@ class Playquiz extends React.Component<any, IState> {
         }
 
         this.setState({
-            quizSubmitCompleted: true
+            isQuizSubmitCompleted: true
         })
     }
 
-    getQuizDetails = () => {
+    public getQuizDetails = () => {
         const { questionsCounter, totalQuestions, quiz_details } = this.state;
 
         if (questionsCounter != totalQuestions) {
@@ -112,7 +99,7 @@ class Playquiz extends React.Component<any, IState> {
                 question: quiz_details[questionsCounter].question,
                 answers: quiz_details[questionsCounter].answers,
                 correctAnswer: quiz_details[questionsCounter].correctAnswer,
-                quizSubmitCompleted: false
+                isQuizSubmitCompleted: false
             });
 
         } else {
@@ -123,20 +110,18 @@ class Playquiz extends React.Component<any, IState> {
 
     }
 
-    showButtons = () => {
-        const { quizSubmitCompleted, isQuizCompleted } = this.state;
+    public showButtons = () => {
+        const { isQuizSubmitCompleted, isQuizCompleted } = this.state;
 
-        if (!quizSubmitCompleted) {
-            return <div> <input type="submit" className="quizButton" value="Done" />  <br /> </div>
-        } else if (!isQuizCompleted) {
-            return <div> <br /> <button className="playButton" onClick={this.getQuizDetails}>Next >></button> </div>
-        } else if (this.state.isQuizCompleted) {
-            return <div> <br /> <NavLink className="playButton" to="/score"> View score </NavLink> </div>
-        } else {
-            return null
-        }
+        if (!isQuizSubmitCompleted) {
+            return <div><button type="submit" className="quizButton" value="Done">Done</button> <br /></div>;
+        }  
+        
+        if (isQuizSubmitCompleted && !isQuizCompleted) {
+            return <div><br /><button className="playButton" onClick={this.getQuizDetails}>Next >></button></div>
+        } 
+        
     }
-
 
     render() {
         const {
@@ -149,7 +134,7 @@ class Playquiz extends React.Component<any, IState> {
             answers,
             question_id,
             correctAnswer,
-            quizSubmitCompleted,
+            isQuizSubmitCompleted,
             quizResult
         } = this.state;
 
@@ -175,19 +160,19 @@ class Playquiz extends React.Component<any, IState> {
                                             </div>
 
                                             <form className="quizCard" onSubmit={this.handleQuizSubmitDoneButton}>
-                                                {
-                                                    <div key={question_id}>
-                                                        <div className="questionHead">
-                                                            <Questionslist questionsList={question} />
-                                                        </div> <hr />
+                                                <div key={question_id}>
+                                                    <div className="questionHead">
+                                                        <Questionslist questionsList={question} />
+                                                    </div> <hr />
 
-                                                        <div className="answerList">
-                                                            <Answeroptionslist answerList={answers} question_id={question_id} change={this.handleChange} />
-                                                        </div>
+                                                    <div className="answerList">
+                                                        <Answeroptionslist answerList={answers} question_id={question_id} change={this.handleChange} />
+                                                    </div>
 
+                                                    <div className="answerDisplay">
                                                         {
-                                                            quizSubmitCompleted ?
-                                                                <div className="answerDisplay">
+                                                            isQuizSubmitCompleted ?
+                                                                <div>
                                                                     {
                                                                         quizResult ?
                                                                             <div>
@@ -205,7 +190,7 @@ class Playquiz extends React.Component<any, IState> {
                                                                 null
                                                         }
                                                     </div>
-                                                }
+                                                </div>
 
                                                 <div className="quizButtonWrapper">
                                                     {this.showButtons()}
@@ -213,7 +198,7 @@ class Playquiz extends React.Component<any, IState> {
                                             </form>
                                         </div>
                                         :
-                                        <div>
+                                        <div className="scoreAchieved">
                                             <Score scoreAchieved={scoreAchieved} totalQuestions={totalQuestions} />
                                         </div>
                                 }

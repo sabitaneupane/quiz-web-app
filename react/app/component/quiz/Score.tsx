@@ -15,9 +15,9 @@ const Score = (props) => {
                     </div> 
 
                     <div className="quizScored">
-                        <span className="scoreCircle"> {scoreAchieved} </span>
+                        <span className="scoreCircle scoreAchieved">{scoreAchieved}</span>
                         <span className="scoreText"> out of </span>
-                        <span className="scoreCircle"> {totalQuestions} </span>
+                        <span className="scoreCircle totalQuestions">{totalQuestions}</span>
                     </div> 
             
                     <p className="paragraph"> Wanna put yourself into test again? </p>
