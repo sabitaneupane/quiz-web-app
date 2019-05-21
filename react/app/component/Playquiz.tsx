@@ -11,204 +11,214 @@ import Score from './quiz/Score';
 import axios from 'axios';
 
 interface IState {
-    quiz_details: Object[];
-    totalQuestions: Number;
-    questionsCounter: Number;
-    question_id: Number;
-    question: String;
-    answers: Array<String>;
-    correctAnswer: String;
-    isQuizCompleted: Boolean;
-    selectedAns: String;
-    isQuizSubmitCompleted: Boolean;
-    quizResult: Boolean;
-    scoreAchieved: Number;
-    isLoading: Boolean;
+  quiz_details: Object[];
+  totalQuestions: Number;
+  questionsCounter: Number;
+  question_id: Number;
+  question: String;
+  answers: Array<String>;
+  correctAnswer: String;
+  isQuizCompleted: Boolean;
+  selectedAns: String;
+  isQuizSubmitCompleted: Boolean;
+  quizResult: Boolean;
+  scoreAchieved: Number;
+  isLoading: Boolean;
 }
 
 class Playquiz extends React.Component<any, IState> {
+  public readonly state = {
+    quiz_details: [],
+    totalQuestions: 0,
+    questionsCounter: 0,
+    question_id: 0,
+    question: '',
+    answers: [],
+    correctAnswer: '',
+    isQuizCompleted: false,
+    selectedAns: '',
+    isQuizSubmitCompleted: false,
+    quizResult: false,
+    scoreAchieved: 0,
+    isLoading: true,
+  };
 
-    public readonly state = {
-        quiz_details: [],
-        totalQuestions: 0,
-        questionsCounter: 0,
-        question_id: 0,
-        question: '',
-        answers: [],
-        correctAnswer: '',
-        isQuizCompleted: false,
-        selectedAns: '',
-        isQuizSubmitCompleted: false,
-        quizResult: false,
-        scoreAchieved: 0,
-        isLoading: true
-    }
+  componentDidMount() {
+    this.fetchData();
+  }
 
-    componentDidMount() {
-        this.fetchData();
-    }
-
-    public fetchData(){
-        axios.get("http://localhost:8080/api/quiz")
-            .then((response) => {
-                this.setState({
-                    quiz_details: response.data.quiz,
-                    totalQuestions: response.data.quiz.length,
-                    isLoading: false
-                });
-                this.getQuizDetails();
-            })
-            .catch((error) => {
-                console.log(error);
-            });
-    }
-
-    public handleChange = (evt) => {
+  public fetchData() {
+    axios
+      .get('http://localhost:8080/api/quiz')
+      .then(response => {
         this.setState({
-            selectedAns: evt.target.value
+          quiz_details: response.data.quiz,
+          totalQuestions: response.data.quiz.length,
+          isLoading: false,
         });
+        this.getQuizDetails();
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  }
+
+  public handleChange = evt => {
+    this.setState({
+      selectedAns: evt.target.value,
+    });
+  };
+
+  public handleQuizSubmitDoneButton = e => {
+    e.preventDefault();
+    const { correctAnswer, selectedAns, scoreAchieved } = this.state;
+
+    if (correctAnswer === selectedAns) {
+      this.setState({
+        quizResult: true,
+        scoreAchieved: scoreAchieved + 1,
+      });
+    } else {
+      this.setState({
+        quizResult: false,
+      });
     }
 
-    public handleQuizSubmitDoneButton = (e) => {
-        e.preventDefault();
-        const { correctAnswer, selectedAns, scoreAchieved } = this.state;
+    this.setState({
+      isQuizSubmitCompleted: true,
+    });
+  };
 
-        if (correctAnswer === selectedAns) {
-            this.setState({
-                quizResult: true,
-                scoreAchieved: scoreAchieved + 1
-            })
-        } else {
-            this.setState({
-                quizResult: false
-            })
-        }
+  public getQuizDetails = () => {
+    const { questionsCounter, totalQuestions, quiz_details } = this.state;
 
-        this.setState({
-            isQuizSubmitCompleted: true
-        })
+    if (questionsCounter != totalQuestions) {
+      this.setState({
+        questionsCounter: questionsCounter + 1,
+        question_id: quiz_details[questionsCounter].question_id,
+        question: quiz_details[questionsCounter].question,
+        answers: quiz_details[questionsCounter].answers,
+        correctAnswer: quiz_details[questionsCounter].correctAnswer,
+        isQuizSubmitCompleted: false,
+      });
+    } else {
+      this.setState({
+        isQuizCompleted: true,
+      });
+    }
+  };
+
+  public showButtons = () => {
+    const { isQuizSubmitCompleted, isQuizCompleted } = this.state;
+
+    if (!isQuizSubmitCompleted) {
+      return (
+        <div>
+          <button type="submit" className="quizButton" value="Done">
+            Done
+          </button>
+          <br />
+        </div>
+      );
     }
 
-    public getQuizDetails = () => {
-        const { questionsCounter, totalQuestions, quiz_details } = this.state;
-
-        if (questionsCounter != totalQuestions) {
-            this.setState({
-                questionsCounter: questionsCounter + 1,
-                question_id: quiz_details[questionsCounter].question_id,
-                question: quiz_details[questionsCounter].question,
-                answers: quiz_details[questionsCounter].answers,
-                correctAnswer: quiz_details[questionsCounter].correctAnswer,
-                isQuizSubmitCompleted: false
-            });
-
-        } else {
-            this.setState({
-                isQuizCompleted: true
-            })
-        }
-
+    if (isQuizSubmitCompleted && !isQuizCompleted) {
+      return (
+        <div>
+          <br />
+          <button className="playButton" onClick={this.getQuizDetails}>
+            Next >>
+          </button>
+        </div>
+      );
     }
+  };
 
-    public showButtons = () => {
-        const { isQuizSubmitCompleted, isQuizCompleted } = this.state;
+  render() {
+    const {
+      isLoading,
+      isQuizCompleted,
+      scoreAchieved,
+      questionsCounter,
+      totalQuestions,
+      question,
+      answers,
+      question_id,
+      correctAnswer,
+      isQuizSubmitCompleted,
+      quizResult,
+    } = this.state;
 
-        if (!isQuizSubmitCompleted) {
-            return <div><button type="submit" className="quizButton" value="Done">Done</button> <br /></div>;
-        }  
-        
-        if (isQuizSubmitCompleted && !isQuizCompleted) {
-            return <div><br /><button className="playButton" onClick={this.getQuizDetails}>Next >></button></div>
-        } 
-        
-    }
+    return (
+      <div>
+        <div className="quizContainer">
+          {isLoading ? (
+            <div className="contentWrapper LoadingHead">Loading...</div>
+          ) : (
+            <div className="container">
+              {!isQuizCompleted ? (
+                <div className="playQuiz">
+                  <div className="contentWrapper">
+                    <div className="detailscard">
+                      <div className="row">
+                        <p className="col-md-6">
+                          Total score- <span> {scoreAchieved} </span>
+                        </p>
+                        <p className="col-md-6">
+                          Question no-
+                          <span>
+                            {questionsCounter} out of {totalQuestions}
+                          </span>
+                        </p>
+                      </div>
+                    </div>
+                  </div>
 
-    render() {
-        const {
-            isLoading,
-            isQuizCompleted,
-            scoreAchieved,
-            questionsCounter,
-            totalQuestions,
-            question,
-            answers,
-            question_id,
-            correctAnswer,
-            isQuizSubmitCompleted,
-            quizResult
-        } = this.state;
+                  <form className="quizCard" onSubmit={this.handleQuizSubmitDoneButton}>
+                    <div key={question_id}>
+                      <div className="questionHead">
+                        <Questionslist questionsList={question} />
+                      </div>
+                      <hr />
+                      <div className="answerList">
+                        <Answeroptionslist
+                          answerList={answers}
+                          question_id={question_id}
+                          change={this.handleChange}
+                        />
+                      </div>
+                      <div className="answerDisplay">
+                        {isQuizSubmitCompleted ? (
+                          <div>
+                            {quizResult ? (
+                              <div>
+                                <div className="text-success"> Correct Answer </div>
+                              </div>
+                            ) : (
+                              <div>
+                                <div className="text-danger"> Wrong Answer </div> <br />
+                                <Answerdisplay correctAnswer={correctAnswer} />
+                              </div>
+                            )}
+                          </div>
+                        ) : null}
+                      </div>
+                    </div>
 
-        return (
-            <div>
-                <div className="quizContainer">
-
-                    {
-                        isLoading ?
-                            <div className="contentWrapper LoadingHead">Loading...</div>
-                            :
-                            <div className="container">
-                                {
-                                    !isQuizCompleted ?
-                                        <div className="playQuiz">
-                                            <div className="contentWrapper">
-                                                <div className="detailscard">
-                                                    <div className="row">
-                                                        <p className="col-md-6"> Total score- <span>  {scoreAchieved} </span> </p>
-                                                        <p className="col-md-6"> Question no- <span>  {questionsCounter} out of {totalQuestions} </span> </p>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            <form className="quizCard" onSubmit={this.handleQuizSubmitDoneButton}>
-                                                <div key={question_id}>
-                                                    <div className="questionHead">
-                                                        <Questionslist questionsList={question} />
-                                                    </div> <hr />
-
-                                                    <div className="answerList">
-                                                        <Answeroptionslist answerList={answers} question_id={question_id} change={this.handleChange} />
-                                                    </div>
-
-                                                    <div className="answerDisplay">
-                                                        {
-                                                            isQuizSubmitCompleted ?
-                                                                <div>
-                                                                    {
-                                                                        quizResult ?
-                                                                            <div>
-                                                                                <div className="text-success"> Correct Answer </div>
-                                                                            </div>
-                                                                            :
-                                                                            <div>
-                                                                                <div className="text-danger"> Wrong Answer </div> <br />
-                                                                                <Answerdisplay correctAnswer={correctAnswer} />
-                                                                            </div>
-                                                                    }
-
-                                                                </div>
-                                                                :
-                                                                null
-                                                        }
-                                                    </div>
-                                                </div>
-
-                                                <div className="quizButtonWrapper">
-                                                    {this.showButtons()}
-                                                </div>
-                                            </form>
-                                        </div>
-                                        :
-                                        <div className="scoreAchieved">
-                                            <Score scoreAchieved={scoreAchieved} totalQuestions={totalQuestions} />
-                                        </div>
-                                }
-                            </div>
-
-                    }
+                    <div className="quizButtonWrapper">{this.showButtons()}</div>
+                  </form>
                 </div>
+              ) : (
+                <div className="scoreAchieved">
+                  <Score scoreAchieved={scoreAchieved} totalQuestions={totalQuestions} />
+                </div>
+              )}
             </div>
-        );
-    }
+          )}
+        </div>
+      </div>
+    );
+  }
 }
 
 export default Playquiz;

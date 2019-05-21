@@ -16,7 +16,6 @@ app.get('*', (req, res) => {
 });
 // --------------- React Quiz app --------------
 
-
 const appPort = process.env.PORT || 8080;
 app.listen(appPort, () => {
   console.log(`Starting up server, serving Available on: http://localhost:${appPort}`);
