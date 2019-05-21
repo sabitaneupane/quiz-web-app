@@ -1,4 +1,4 @@
-# Quiz app using react 
+# Quiz app using react
 
 ## Run following command when installing and setting up project
 
@@ -8,7 +8,7 @@
 npm install
 ```
 
-> build ap into dist folder 
+> build ap into dist folder
 
 ```
 npm run build
@@ -23,22 +23,25 @@ npm run dev
 ```
 
 > start nodemon server (on seperate terminal)
+
 ```
 npm run start
 ```
 
-# Jest test coverage (for version >  23.6)
-
+# Jest test coverage (for version > 23.6)
 
 > For npm:
-You must put -- before passing the --coverage argument of jest
+> You must put -- before passing the --coverage argument of jest
+
 ```
 npm test -- --coverage
 ```
+
 if you try invoking the --coverage directly without the -- it won't work
 
 > For yarn:
-You can pass the --coverage argument of jest directly
+> You can pass the --coverage argument of jest directly
+
 ```
 yarn test --coverage
 ```

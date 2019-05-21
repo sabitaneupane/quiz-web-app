@@ -5,4 +5,3 @@ const quizController = require('../controllers/quizController');
 router.get('/', quizController.sendQuizData);
 
 module.exports = router;
-

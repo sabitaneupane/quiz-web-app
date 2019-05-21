@@ -4,15 +4,14 @@ import * as React from 'react';
 import Home from '../component/Home';
 
 describe('<Home />', () => {
-    const wrapper = shallow(<Home />);
+  const wrapper = shallow(<Home />);
 
-    describe('Component  ', () => {
-        it('should render component', () => {
-    		expect(wrapper.find('.mainTitle')).toHaveLength(1);
-    		expect(wrapper.find('.subTitle')).toHaveLength(1);
-    		expect(wrapper.find('.paragraph')).toHaveLength(1);
-    		expect(wrapper.find('NavLink')).toHaveLength(1);
-        });
+  describe('Component  ', () => {
+    it('should render component', () => {
+      expect(wrapper.find('.mainTitle')).toHaveLength(1);
+      expect(wrapper.find('.subTitle')).toHaveLength(1);
+      expect(wrapper.find('.paragraph')).toHaveLength(1);
+      expect(wrapper.find('NavLink')).toHaveLength(1);
     });
+  });
 });
-
