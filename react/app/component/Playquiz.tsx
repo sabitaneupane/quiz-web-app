@@ -114,10 +114,10 @@ class Playquiz extends React.Component<any, IState> {
     if (!isQuizSubmitCompleted) {
       return (
         <div>
+          <br />
           <button type="submit" className="quizButton" value="Done">
             Done
           </button>
-          <br />
         </div>
       );
     }
@@ -125,7 +125,6 @@ class Playquiz extends React.Component<any, IState> {
     if (isQuizSubmitCompleted && !isQuizCompleted) {
       return (
         <div>
-          <br />
           <button className="playButton" onClick={this.getQuizDetails}>
             Next >>
           </button>
@@ -196,7 +195,6 @@ class Playquiz extends React.Component<any, IState> {
                               </div>
                             ) : (
                               <div>
-                                <div className="text-danger"> Wrong Answer </div> <br />
                                 <Answerdisplay correctAnswer={correctAnswer} />
                               </div>
                             )}

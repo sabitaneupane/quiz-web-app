@@ -16,6 +16,12 @@ describe('<Answeroptionslist />', () => {
           .children()
           .find('.optionsLabel'),
       ).toHaveLength(answerList.length);
+      expect(
+        wrapper
+          .find('.answerOptionsList')
+          .children()
+          .find('input'),
+      ).toHaveLength(answerList.length);
     });
   });
 });
