@@ -112,9 +112,27 @@ describe('<Playquiz />', () => {
     });
   });
 
+  describe('Function validateField', () => {
+    const wrapper = shallow(<Playquiz />);
+
+    it('Should return isValid false if value is empty', () => {
+      const value = '';
+      wrapper.instance().validateField(value);
+      expect(wrapper.state().isValid).toBe(false);
+      expect(wrapper.state().isPristine).toBe(false);
+    });
+    it('Should return isValid false if value is not empty', () => {
+      const value = 'option 3';
+      wrapper.instance().validateField(value);
+      expect(wrapper.state().isValid).toBe(true);
+      expect(wrapper.state().isPristine).toBe(false);
+    });
+  });
+
   describe('Function handleQuizSubmitDoneButton', () => {
     it('Should set value true on isQuizSubmitCompleted', () => {
       const wrapper = shallow(<Playquiz />);
+      wrapper.setState({ selectedAns: '3' });
       wrapper.instance().handleQuizSubmitDoneButton({ preventDefault: jest.fn() });
       expect(wrapper.state().isQuizSubmitCompleted).toBe(true);
     });
