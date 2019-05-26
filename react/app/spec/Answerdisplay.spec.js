@@ -14,7 +14,7 @@ describe('<AnswerDisplay />', () => {
 
   describe('Props are defined', () => {
     it('Props should have correct value', () => {
-      expect(wrapper.find('.correctAnswer').text()).toBe('Correct ans: option 4');
+      expect(wrapper.find('.correctAnswer').text()).toBe('Answer = option 4');
     });
   });
 });

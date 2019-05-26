@@ -13,7 +13,6 @@ const Answeroptionslist = props => {
                 value={answer}
                 name={question_id}
                 data-index={question_id}
-                required
                 onChange={evt => change(evt)}
               />
               &nbsp;&nbsp;{answer}

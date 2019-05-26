@@ -24,6 +24,8 @@ interface IState {
   quizResult: Boolean;
   scoreAchieved: Number;
   isLoading: Boolean;
+  isValid: Boolean;
+  isPristine: Boolean;
 }
 
 class Playquiz extends React.Component<any, IState> {
@@ -41,6 +43,8 @@ class Playquiz extends React.Component<any, IState> {
     quizResult: false,
     scoreAchieved: 0,
     isLoading: true,
+    isValid: false,
+    isPristine: true,
   };
 
   componentDidMount() {
@@ -69,24 +73,42 @@ class Playquiz extends React.Component<any, IState> {
     });
   };
 
+  public validateField(value) {
+    if (value === '') {
+      this.setState({
+        isValid: false,
+        isPristine: false,
+      })
+      return false;
+    } else {
+      this.setState({
+        isValid: true,
+        isPristine: false,
+      })
+      return true;
+    }
+  }
+
   public handleQuizSubmitDoneButton = e => {
     e.preventDefault();
     const { correctAnswer, selectedAns, scoreAchieved } = this.state;
+    const isDataValid = this.validateField(selectedAns);
+    if (isDataValid) {
+      if (correctAnswer === selectedAns) {
+        this.setState({
+          quizResult: true,
+          scoreAchieved: scoreAchieved + 1,
+        });
+      } else {
+        this.setState({
+          quizResult: false,
+        });
+      }
 
-    if (correctAnswer === selectedAns) {
       this.setState({
-        quizResult: true,
-        scoreAchieved: scoreAchieved + 1,
-      });
-    } else {
-      this.setState({
-        quizResult: false,
+        isQuizSubmitCompleted: true,
       });
     }
-
-    this.setState({
-      isQuizSubmitCompleted: true,
-    });
   };
 
   public getQuizDetails = () => {
@@ -100,6 +122,9 @@ class Playquiz extends React.Component<any, IState> {
         answers: quiz_details[questionsCounter].answers,
         correctAnswer: quiz_details[questionsCounter].correctAnswer,
         isQuizSubmitCompleted: false,
+        selectedAns: '',
+        isValid: false,
+        isPristine: true,
       });
     } else {
       this.setState({
@@ -146,6 +171,8 @@ class Playquiz extends React.Component<any, IState> {
       correctAnswer,
       isQuizSubmitCompleted,
       quizResult,
+      isValid,
+      isPristine
     } = this.state;
 
     return (
@@ -154,65 +181,66 @@ class Playquiz extends React.Component<any, IState> {
           {isLoading ? (
             <div className="contentWrapper LoadingHead">Loading...</div>
           ) : (
-            <div className="container">
-              {!isQuizCompleted ? (
-                <div className="playQuiz">
-                  <div className="contentWrapper">
-                    <div className="detailscard">
-                      <div className="row">
-                        <p className="col-md-6">
-                          Total score- <span> {scoreAchieved} </span>
-                        </p>
-                        <p className="col-md-6">
-                          Question no-
+              <div className="container">
+                {!isQuizCompleted ? (
+                  <div className="playQuiz">
+                    <div className="contentWrapper">
+                      <div className="detailscard">
+                        <div className="row">
+                          <p className="col-md-6">
+                            Total score- <span> {scoreAchieved} </span>
+                          </p>
+                          <p className="col-md-6">
+                            Question no-
                           <span>
-                            {questionsCounter} out of {totalQuestions}
-                          </span>
-                        </p>
+                              {questionsCounter} out of {totalQuestions}
+                            </span>
+                          </p>
+                        </div>
                       </div>
                     </div>
+
+                    <form className="quizCard" onSubmit={this.handleQuizSubmitDoneButton}>
+                      <div key={question_id}>
+                        <div className="questionHead">
+                          <Questionslist questionsList={question} />
+                        </div>
+                        <hr />
+                        {!isValid && !isPristine ? <p className="errorMessageDisplay text-danger"> Please select answer. </p> : null}
+                        <div className="answerList">
+                          <Answeroptionslist
+                            answerList={answers}
+                            question_id={question_id}
+                            change={this.handleChange}
+                          />
+                        </div>
+                        <div className="answerDisplay">
+                          {isQuizSubmitCompleted ? (
+                            <div>
+                              {quizResult ? (
+                                <div>
+                                  <div className="text-success"> Correct Answer </div>
+                                </div>
+                              ) : (
+                                  <div>
+                                    <Answerdisplay correctAnswer={correctAnswer} />
+                                  </div>
+                                )}
+                            </div>
+                          ) : null}
+                        </div>
+                      </div>
+
+                      <div className="quizButtonWrapper">{this.showButtons()}</div>
+                    </form>
                   </div>
-
-                  <form className="quizCard" onSubmit={this.handleQuizSubmitDoneButton}>
-                    <div key={question_id}>
-                      <div className="questionHead">
-                        <Questionslist questionsList={question} />
-                      </div>
-                      <hr />
-                      <div className="answerList">
-                        <Answeroptionslist
-                          answerList={answers}
-                          question_id={question_id}
-                          change={this.handleChange}
-                        />
-                      </div>
-                      <div className="answerDisplay">
-                        {isQuizSubmitCompleted ? (
-                          <div>
-                            {quizResult ? (
-                              <div>
-                                <div className="text-success"> Correct Answer </div>
-                              </div>
-                            ) : (
-                              <div>
-                                <Answerdisplay correctAnswer={correctAnswer} />
-                              </div>
-                            )}
-                          </div>
-                        ) : null}
-                      </div>
+                ) : (
+                    <div className="scoreAchieved">
+                      <Score scoreAchieved={scoreAchieved} totalQuestions={totalQuestions} />
                     </div>
-
-                    <div className="quizButtonWrapper">{this.showButtons()}</div>
-                  </form>
-                </div>
-              ) : (
-                <div className="scoreAchieved">
-                  <Score scoreAchieved={scoreAchieved} totalQuestions={totalQuestions} />
-                </div>
-              )}
-            </div>
-          )}
+                  )}
+              </div>
+            )}
         </div>
       </div>
     );
