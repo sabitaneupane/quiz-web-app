@@ -8,7 +8,7 @@
 npm install
 ```
 
-> build ap into dist folder
+> build app into dist folder
 
 ```
 npm run build
