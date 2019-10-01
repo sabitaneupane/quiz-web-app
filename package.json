@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "React sample app with typescript",
   "scripts": {
-    "start": "nodemon server.js",
+    "start": "yarn build && nodemon server.js",
     "build": "webpack --mode production",
     "dev": "webpack -d --watch",
     "test": "jest",

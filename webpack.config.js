@@ -1,3 +1,4 @@
+const path = require('path');
 const HtmlWebPackPlugin = require('html-webpack-plugin');
 
 const htmlWebpackPlugin = new HtmlWebPackPlugin({
@@ -9,6 +10,9 @@ module.exports = {
   entry: './react/app/index.tsx',
   resolve: {
     extensions: ['.ts', '.tsx', '.js'],
+  },
+  output: {
+    path: path.resolve(__dirname, 'react-dist'),
   },
   module: {
     rules: [
