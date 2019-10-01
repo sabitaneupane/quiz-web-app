@@ -1,8 +1,6 @@
 import * as React from 'react';
 import '../../../styles/quiz.scss';
 
-import { NavLink } from 'react-router-dom';
-
 import Questionslist from './quiz/Questionslist';
 import Answeroptionslist from './quiz/Answeroptionslist';
 import Answerdisplay from './quiz/Answerdisplay';
@@ -78,13 +76,13 @@ class Playquiz extends React.Component<any, IState> {
       this.setState({
         isValid: false,
         isPristine: false,
-      })
+      });
       return false;
     } else {
       this.setState({
         isValid: true,
         isPristine: false,
-      })
+      });
       return true;
     }
   }
@@ -172,7 +170,7 @@ class Playquiz extends React.Component<any, IState> {
       isQuizSubmitCompleted,
       quizResult,
       isValid,
-      isPristine
+      isPristine,
     } = this.state;
 
     return (
@@ -188,10 +186,11 @@ class Playquiz extends React.Component<any, IState> {
                       <div className="detailscard">
                         <div className="row">
                           <p className="col-md-6">
-                            Total score- <span> {scoreAchieved} </span>
+                            Total score:
+                          <span> {scoreAchieved} </span>
                           </p>
                           <p className="col-md-6">
-                            Question no-
+                            Question no:
                           <span>
                               {questionsCounter} out of {totalQuestions}
                             </span>
@@ -206,7 +205,9 @@ class Playquiz extends React.Component<any, IState> {
                           <Questionslist questionsList={question} />
                         </div>
                         <hr />
-                        {!isValid && !isPristine ? <p className="errorMessageDisplay text-danger"> Please select answer. </p> : null}
+                        {!isValid && !isPristine ? (
+                          <p className="errorMessageDisplay text-danger"> Please select answer. </p>
+                        ) : null}
                         <div className="answerList">
                           <Answeroptionslist
                             answerList={answers}

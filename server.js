@@ -9,10 +9,10 @@ app.use('/api/quiz', quizRouter);
 // --------------- Routers --------------
 
 // --------------- React Quiz app --------------
-app.use('/', express.static(`${__dirname}/dist`));
+app.use('/', express.static(`${__dirname}/react-dist`));
 
 app.get('*', (req, res) => {
-  res.sendFile(`${__dirname}/dist/index.html`);
+  res.sendFile(`${__dirname}/react-dist/index.html`);
 });
 // --------------- React Quiz app --------------
 
