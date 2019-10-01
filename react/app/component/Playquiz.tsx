@@ -1,8 +1,6 @@
 import * as React from 'react';
 import '../../../styles/quiz.scss';
 
-import { NavLink } from 'react-router-dom';
-
 import Questionslist from './quiz/Questionslist';
 import Answeroptionslist from './quiz/Answeroptionslist';
 import Answerdisplay from './quiz/Answerdisplay';
