@@ -1,16 +1,16 @@
 import * as React from 'react';
 import { Route, Switch } from 'react-router-dom';
 
-import Home from './component/Home';
+import App from './App';
 import Playquiz from './component/Playquiz';
-import Error from './component/Error';
+import Notfound from './utils/Notfound';
 
 export default function() {
   return (
     <Switch>
-      <Route path="/" component={Home} exact />
+      <Route path="/" component={App} exact />
       <Route path="/playquiz" component={Playquiz} />
-      <Route component={Error} />
+      <Route component={Notfound} />
     </Switch>
   );
 }

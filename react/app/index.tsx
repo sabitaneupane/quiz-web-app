@@ -7,11 +7,11 @@ import 'bootstrap/dist/js/bootstrap.min.js';
 
 import { BrowserRouter } from 'react-router-dom';
 
-import Routes from './routes';
+import AppRouter from './AppRouter';
 
 ReactDOM.render(
   <BrowserRouter>
-    <Routes />
+    <AppRouter />
   </BrowserRouter>,
   document.getElementById('index'),
 );

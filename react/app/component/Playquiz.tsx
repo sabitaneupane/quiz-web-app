@@ -4,7 +4,7 @@ import '../../../styles/quiz.scss';
 import Questionslist from './quiz/Questionslist';
 import Answeroptionslist from './quiz/Answeroptionslist';
 import Answerdisplay from './quiz/Answerdisplay';
-import Score from './quiz/Score';
+import Score from './quiz/Scoredisplay';
 
 import axios from 'axios';
 

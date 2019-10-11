@@ -1,9 +1,9 @@
 import * as React from 'react';
-import '../../../styles/home.scss';
+import '../../styles/app.scss';
 
 import { NavLink } from 'react-router-dom';
 
-const Home = props => {
+const App = () => {
   return (
     <div>
       <div className="quizContainer">
@@ -23,4 +23,4 @@ const Home = props => {
   );
 };
 
-export default Home;
+export default App;

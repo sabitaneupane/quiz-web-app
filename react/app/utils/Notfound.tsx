@@ -3,7 +3,7 @@ import '../../../styles/error.scss';
 
 import { NavLink } from 'react-router-dom';
 
-const Error = props => {
+const Error = () => {
   return (
     <div>
       <div className="quizContainer">
