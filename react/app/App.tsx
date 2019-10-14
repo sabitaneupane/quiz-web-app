@@ -1,9 +1,16 @@
 import * as React from 'react';
-import '../../../styles/home.scss';
-
+import { useEffect } from "react";
 import { NavLink } from 'react-router-dom';
+import { connect } from "react-redux";
 
-const Home = props => {
+import '../../styles/app.scss';
+
+import { set_quiz_game } from './actions';
+
+export const App: React.FunctionComponent = (props: any) => {
+  useEffect(() => {
+    props.dispatch(set_quiz_game());
+  }, [])
   return (
     <div>
       <div className="quizContainer">
@@ -23,4 +30,4 @@ const Home = props => {
   );
 };
 
-export default Home;
+export default connect(null, null)(App);
