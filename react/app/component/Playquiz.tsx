@@ -7,6 +7,8 @@ import Questionslist from './quiz/Questionslist';
 import Answeroptionslist from './quiz/Answeroptionslist';
 import Answerdisplay from './quiz/Answerdisplay';
 import Score from './quiz/Scoredisplay';
+import Loading from '../utils/Loading';
+import Error from '../utils/Error';
 
 import {
   fetch_quiz,
@@ -32,6 +34,7 @@ interface IProps {
   quizResult: Boolean;
   scoreAchieved: Number;
   isLoading: Boolean;
+  isError: Boolean;
   isValid: Boolean;
   isPristine: Boolean;
 }
@@ -40,6 +43,7 @@ export const Playquiz: React.FunctionComponent<IProps> = (props: any) => {
   const {
     quizdata,
     isLoading,
+    isError,
     isQuizCompleted,
     scoreAchieved,
     questionsCounter,
@@ -60,7 +64,7 @@ export const Playquiz: React.FunctionComponent<IProps> = (props: any) => {
   }, [])
 
   const getQuizDetails = () => {
-    if (questionsCounter+1 != totalQuestions) {
+    if (questionsCounter + 1 != totalQuestions) {
       props.dispatch(receive_specific_quiz(quizdata, questionsCounter));
     } else {
       props.dispatch(quiz_completed());
@@ -120,8 +124,9 @@ export const Playquiz: React.FunctionComponent<IProps> = (props: any) => {
   return (
     <div>
       <div className="quizContainer">
-        {isLoading ? (
-          <div className="contentWrapper LoadingHead">Loading...</div>
+        {isLoading ? <Loading /> : null}
+        {isError ? (
+          <div className="contentWrapper headTitle"> <Error /> </div>
         ) : (
             <div className="container">
               {!isQuizCompleted ? (
@@ -135,9 +140,7 @@ export const Playquiz: React.FunctionComponent<IProps> = (props: any) => {
                         </p>
                         <p className="col-md-6">
                           Question no:
-                          <span>
-                            {questionsCounter} out of {totalQuestions}
-                          </span>
+                          <span> {questionsCounter} out of {totalQuestions} </span>
                         </p>
                       </div>
                     </div>
@@ -194,6 +197,7 @@ export const Playquiz: React.FunctionComponent<IProps> = (props: any) => {
 const mapStateToProps = (store: any) => ({
   quizdata: store.quizdata,
   isLoading: store.isLoading,
+  isError: store.isError,
   isQuizCompleted: store.isQuizCompleted,
   scoreAchieved: store.scoreAchieved,
   questionsCounter: store.questionsCounter,

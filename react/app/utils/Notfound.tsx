@@ -1,9 +1,9 @@
 import * as React from 'react';
-import '../../../styles/error.scss';
+import '../../../styles/utils.scss';
 
 import { NavLink } from 'react-router-dom';
 
-const Error = () => {
+const Notfound = () => {
   return (
     <div>
       <div className="quizContainer">
@@ -20,4 +20,4 @@ const Error = () => {
   );
 };
 
-export default Error;
+export default Notfound;
