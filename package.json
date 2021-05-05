@@ -61,7 +61,7 @@
     "bootstrap": "^4.3.1",
     "express": "^4.16.4",
     "jquery": "^3.5.0",
-    "node-sass": "^4.11.0",
+    "node-sass": "^4.13.1",
     "nodemon": "^1.18.11",
     "popper.js": "^1.15.0",
     "prettier": "^1.17.1",
